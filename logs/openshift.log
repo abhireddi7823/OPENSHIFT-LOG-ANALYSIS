@@ -1,66 +1,801 @@
-2026-07-30T09:00:01.114Z INFO  payment-api-7f8c95f7b-jkq2d Application started successfully
-
-2026-07-30T09:01:12.421Z WARN  payment-api-7f8c95f7b-jkq2d CPU usage exceeded 85%
-
-2026-07-30T09:01:43.876Z WARN  payment-api-7f8c95f7b-jkq2d Memory usage exceeded 90%
-
-2026-07-30T09:02:11.323Z ERROR payment-api-7f8c95f7b-jkq2d Database connection timeout after 30000 ms
-
-2026-07-30T09:02:15.993Z ERROR payment-api-7f8c95f7b-jkq2d Transaction /payments failed with HTTP 500
-
-2026-07-30T09:02:21.514Z INFO  auth-service-6647d8df4c-lmn8p Authentication successful
-
-2026-07-30T09:03:17.243Z WARN  auth-service-6647d8df4c-lmn8p Pod restart count increased to 3
-
-2026-07-30T09:03:39.816Z ERROR auth-service-6647d8df4c-lmn8p Connection pool exhausted
-
-2026-07-30T09:04:22.510Z ERROR payment-api-7f8c95f7b-jkq2d Java heap space
-
-2026-07-30T09:04:25.225Z ERROR payment-api-7f8c95f7b-jkq2d OutOfMemoryError
-
-2026-07-30T09:04:30.180Z WARN  kubelet Container payment-api terminated due to OOMKilled
-
-2026-07-30T09:04:32.419Z INFO  kubelet Restarting pod payment-api-7f8c95f7b-jkq2d
-
-2026-07-30T09:04:35.522Z ERROR kubelet Pod entered CrashLoopBackOff state
-
-2026-07-30T09:05:11.732Z WARN  ingress-nginx Response time exceeded threshold: 2450 ms
-
-2026-07-30T09:05:26.417Z WARN  ingress-nginx Response time exceeded threshold: 3100 ms
-
-2026-07-30T09:05:43.927Z ERROR ingress-nginx Upstream request timeout
-
-2026-07-30T09:06:02.157Z WARN  prometheus Node memory pressure detected
-
-2026-07-30T09:06:11.444Z WARN  prometheus CPU throttling observed on payment-api container
-
-2026-07-30T09:06:47.224Z ERROR payment-api-7f8c95f7b-jkq2d Readiness probe failed
-
-2026-07-30T09:06:52.991Z ERROR payment-api-7f8c95f7b-jkq2d Liveness probe failed
-
-2026-07-30T09:07:21.604Z WARN  scheduler Insufficient memory available on worker-node-03
-
-2026-07-30T09:07:55.374Z ERROR auth-service-6647d8df4c-lmn8p TLS handshake timeout
-
-2026-07-30T09:08:12.087Z ERROR auth-service-6647d8df4c-lmn8p Connection refused to database service
-
-2026-07-30T09:08:39.670Z WARN  payment-api-7f8c95f7b-jkq2d Average response time reached 2800 ms
-
-2026-07-30T09:09:10.924Z INFO  HorizontalPodAutoscaler scaling payment-api from 3 replicas to 5 replicas
-
-2026-07-30T09:09:42.113Z INFO  payment-api-7f8c95f7b-jkq2d Pod became Ready
-
-2026-07-30T09:10:01.777Z INFO  Load test completed
-
-2026-07-30T09:10:02.145Z INFO  Test summary:
-Total Requests: 120000
-Successful Requests: 113400
-Failed Requests: 6600
-Average Response Time: 1850 ms
-P90 Response Time: 2800 ms
-P95 Response Time: 3400 ms
-Peak CPU Usage: 94%
-Peak Memory Usage: 96%
-Pod Restarts: 4
-OOMKilled Events: 1
-CrashLoopBackOff Events: 1
+2026-07-30 09:00:00.000 INFO  [main] com.company.orderservice.Application - Started Application in 4.821 seconds (JVM running for 5.203)
+2026-07-30 09:00:01.000 INFO  [http-nio-8080-exec-11] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (110ms)
+2026-07-30 09:00:01.209 INFO  [http-nio-8080-exec-2] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (127ms)
+2026-07-30 09:00:01.320 INFO  [http-nio-8080-exec-14] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (135ms)
+2026-07-30 09:00:01.438 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (127ms)
+2026-07-30 09:00:01.727 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (84ms)
+2026-07-30 09:00:01.841 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (101ms)
+2026-07-30 09:00:01.985 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (93ms)
+2026-07-30 09:00:02.116 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (188ms)
+2026-07-30 09:00:02.327 INFO  [http-nio-8080-exec-18] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (132ms)
+2026-07-30 09:00:02.576 INFO  [http-nio-8080-exec-18] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (125ms)
+2026-07-30 09:00:02.816 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (98ms)
+2026-07-30 09:00:02.940 INFO  [http-nio-8080-exec-10] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (187ms)
+2026-07-30 09:00:03.303 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (107ms)
+2026-07-30 09:00:03.452 INFO  [http-nio-8080-exec-11] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (110ms)
+2026-07-30 09:00:03.679 INFO  [http-nio-8080-exec-3] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (46ms)
+2026-07-30 09:00:03.881 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (83ms)
+2026-07-30 09:00:04.155 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (171ms)
+2026-07-30 09:00:04.464 INFO  [http-nio-8080-exec-3] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (38ms)
+2026-07-30 09:00:04.758 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (102ms)
+2026-07-30 09:00:04.865 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (38ms)
+2026-07-30 09:00:05.148 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (126ms)
+2026-07-30 09:00:05.368 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (152ms)
+2026-07-30 09:00:05.602 INFO  [http-nio-8080-exec-18] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (175ms)
+2026-07-30 09:00:05.914 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (70ms)
+2026-07-30 09:00:06.302 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (132ms)
+2026-07-30 09:00:06.405 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (145ms)
+2026-07-30 09:00:06.590 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (66ms)
+2026-07-30 09:00:06.976 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (108ms)
+2026-07-30 09:00:07.213 INFO  [http-nio-8080-exec-18] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (87ms)
+2026-07-30 09:00:07.503 INFO  [http-nio-8080-exec-2] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (143ms)
+2026-07-30 09:00:07.898 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (161ms)
+2026-07-30 09:00:07.999 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (154ms)
+2026-07-30 09:00:08.383 INFO  [http-nio-8080-exec-20] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (144ms)
+2026-07-30 09:00:08.528 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (131ms)
+2026-07-30 09:00:08.770 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (164ms)
+2026-07-30 09:00:08.964 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (118ms)
+2026-07-30 09:00:09.286 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (124ms)
+2026-07-30 09:00:09.430 INFO  [http-nio-8080-exec-18] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (127ms)
+2026-07-30 09:00:09.823 INFO  [http-nio-8080-exec-3] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (147ms)
+2026-07-30 09:00:10.030 INFO  [http-nio-8080-exec-8] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (80ms)
+2026-07-30 09:00:10.321 INFO  [http-nio-8080-exec-20] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (145ms)
+2026-07-30 09:00:10.481 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (50ms)
+2026-07-30 09:00:10.878 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (116ms)
+2026-07-30 09:00:11.112 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (181ms)
+2026-07-30 09:00:11.278 INFO  [http-nio-8080-exec-8] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (128ms)
+2026-07-30 09:00:11.522 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (145ms)
+2026-07-30 09:00:11.872 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (133ms)
+2026-07-30 09:00:12.239 INFO  [http-nio-8080-exec-14] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (54ms)
+2026-07-30 09:00:12.365 INFO  [http-nio-8080-exec-13] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (41ms)
+2026-07-30 09:00:12.516 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (176ms)
+2026-07-30 09:00:12.793 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (165ms)
+2026-07-30 09:00:13.090 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (179ms)
+2026-07-30 09:00:13.197 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (119ms)
+2026-07-30 09:00:13.545 INFO  [http-nio-8080-exec-7] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (98ms)
+2026-07-30 09:00:13.708 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (123ms)
+2026-07-30 09:00:14.059 INFO  [http-nio-8080-exec-2] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (84ms)
+2026-07-30 09:00:14.428 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (41ms)
+2026-07-30 09:00:14.688 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (162ms)
+2026-07-30 09:00:15.049 INFO  [http-nio-8080-exec-6] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (191ms)
+2026-07-30 09:00:15.192 INFO  [http-nio-8080-exec-20] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (121ms)
+2026-07-30 09:00:15.459 INFO  [http-nio-8080-exec-11] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (69ms)
+2026-07-30 09:00:15.824 INFO  [http-nio-8080-exec-2] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (114ms)
+2026-07-30 09:00:16.007 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (110ms)
+2026-07-30 09:00:16.240 INFO  [http-nio-8080-exec-20] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (122ms)
+2026-07-30 09:00:16.548 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (75ms)
+2026-07-30 09:00:16.857 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (110ms)
+2026-07-30 09:00:17.209 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (151ms)
+2026-07-30 09:00:17.511 INFO  [http-nio-8080-exec-14] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (149ms)
+2026-07-30 09:00:17.812 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (173ms)
+2026-07-30 09:00:17.955 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (98ms)
+2026-07-30 09:00:18.279 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (137ms)
+2026-07-30 09:00:18.427 INFO  [http-nio-8080-exec-14] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (104ms)
+2026-07-30 09:00:18.629 INFO  [http-nio-8080-exec-7] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (93ms)
+2026-07-30 09:00:18.830 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (178ms)
+2026-07-30 09:00:19.045 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (91ms)
+2026-07-30 09:00:19.441 INFO  [http-nio-8080-exec-8] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (217ms)
+2026-07-30 09:00:19.621 INFO  [http-nio-8080-exec-2] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (117ms)
+2026-07-30 09:00:19.975 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (140ms)
+2026-07-30 09:00:20.236 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (84ms)
+2026-07-30 09:00:20.354 INFO  [http-nio-8080-exec-6] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (121ms)
+2026-07-30 09:00:20.534 INFO  [http-nio-8080-exec-1] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (146ms)
+2026-07-30 09:00:20.654 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (136ms)
+2026-07-30 09:00:20.856 INFO  [http-nio-8080-exec-18] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (148ms)
+2026-07-30 09:00:20.969 INFO  [http-nio-8080-exec-8] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (105ms)
+2026-07-30 09:00:21.148 INFO  [http-nio-8080-exec-6] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (171ms)
+2026-07-30 09:00:21.335 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (96ms)
+2026-07-30 09:00:21.516 INFO  [http-nio-8080-exec-1] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (127ms)
+2026-07-30 09:00:21.770 INFO  [http-nio-8080-exec-8] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (121ms)
+2026-07-30 09:00:22.068 INFO  [http-nio-8080-exec-14] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (44ms)
+2026-07-30 09:00:22.459 INFO  [http-nio-8080-exec-10] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (122ms)
+2026-07-30 09:00:22.853 INFO  [http-nio-8080-exec-11] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (150ms)
+2026-07-30 09:00:23.075 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (65ms)
+2026-07-30 09:00:23.179 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (128ms)
+2026-07-30 09:00:23.540 INFO  [http-nio-8080-exec-10] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (134ms)
+2026-07-30 09:00:23.848 INFO  [http-nio-8080-exec-2] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (132ms)
+2026-07-30 09:00:24.027 INFO  [http-nio-8080-exec-11] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (149ms)
+2026-07-30 09:00:24.200 INFO  [http-nio-8080-exec-10] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (118ms)
+2026-07-30 09:00:24.326 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (121ms)
+2026-07-30 09:00:24.500 INFO  [http-nio-8080-exec-1] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (118ms)
+2026-07-30 09:00:24.776 INFO  [http-nio-8080-exec-13] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (137ms)
+2026-07-30 09:00:24.967 INFO  [http-nio-8080-exec-8] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (77ms)
+2026-07-30 09:00:25.265 INFO  [http-nio-8080-exec-20] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (94ms)
+2026-07-30 09:00:25.581 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (108ms)
+2026-07-30 09:00:25.694 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (174ms)
+2026-07-30 09:00:26.014 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (176ms)
+2026-07-30 09:00:26.362 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (84ms)
+2026-07-30 09:00:26.488 INFO  [http-nio-8080-exec-2] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (54ms)
+2026-07-30 09:00:26.838 INFO  [http-nio-8080-exec-18] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (43ms)
+2026-07-30 09:00:27.126 INFO  [http-nio-8080-exec-8] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (116ms)
+2026-07-30 09:00:27.451 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (164ms)
+2026-07-30 09:00:27.748 INFO  [http-nio-8080-exec-3] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (117ms)
+2026-07-30 09:00:28.102 INFO  [http-nio-8080-exec-8] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (89ms)
+2026-07-30 09:00:28.271 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (129ms)
+2026-07-30 09:00:28.602 INFO  [http-nio-8080-exec-20] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (106ms)
+2026-07-30 09:00:28.725 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (118ms)
+2026-07-30 09:00:29.011 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (185ms)
+2026-07-30 09:00:29.129 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (142ms)
+2026-07-30 09:00:29.317 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (136ms)
+2026-07-30 09:00:29.556 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (154ms)
+2026-07-30 09:00:29.662 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (225ms)
+2026-07-30 09:00:30.060 INFO  [http-nio-8080-exec-13] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (199ms)
+2026-07-30 09:00:30.334 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 60% (12/20 threads active) - approaching capacity
+2026-07-30 09:00:30.434 WARN  [gc-monitor] com.company.orderservice.monitor.MemoryMonitor - Heap memory usage at 55% (1100MB/2048MB) - approaching OutOfMemory threshold
+2026-07-30 09:00:30.534 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (73ms)
+2026-07-30 09:00:30.674 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (167ms)
+2026-07-30 09:00:30.923 INFO  [http-nio-8080-exec-13] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (79ms)
+2026-07-30 09:00:31.024 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (112ms)
+2026-07-30 09:00:31.237 INFO  [http-nio-8080-exec-11] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (140ms)
+2026-07-30 09:00:31.563 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (100ms)
+2026-07-30 09:00:31.738 INFO  [http-nio-8080-exec-13] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (36ms)
+2026-07-30 09:00:31.947 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (117ms)
+2026-07-30 09:00:32.237 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (132ms)
+2026-07-30 09:00:32.394 INFO  [http-nio-8080-exec-14] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (141ms)
+2026-07-30 09:00:32.710 ERROR [http-nio-8080-exec-14] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/payments/process -> 500 Internal Server Error
+2026-07-30 09:00:32.810 INFO  [http-nio-8080-exec-20] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (67ms)
+2026-07-30 09:00:33.056 INFO  [http-nio-8080-exec-18] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (139ms)
+2026-07-30 09:00:33.245 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (156ms)
+2026-07-30 09:00:33.435 INFO  [http-nio-8080-exec-13] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (131ms)
+2026-07-30 09:00:33.685 INFO  [http-nio-8080-exec-18] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (140ms)
+2026-07-30 09:00:34.057 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 63% (12/20 threads active) - approaching capacity
+2026-07-30 09:00:34.157 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (136ms)
+2026-07-30 09:00:34.310 INFO  [http-nio-8080-exec-11] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (140ms)
+2026-07-30 09:00:34.487 INFO  [http-nio-8080-exec-1] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (147ms)
+2026-07-30 09:00:34.700 INFO  [http-nio-8080-exec-2] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (91ms)
+2026-07-30 09:00:34.973 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (65ms)
+2026-07-30 09:00:35.100 INFO  [http-nio-8080-exec-13] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (62ms)
+2026-07-30 09:00:35.330 INFO  [http-nio-8080-exec-1] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (181ms)
+2026-07-30 09:00:35.720 INFO  [http-nio-8080-exec-3] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (132ms)
+2026-07-30 09:00:36.112 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (147ms)
+2026-07-30 09:00:36.495 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (160ms)
+2026-07-30 09:00:36.595 WARN  [gc-monitor] com.company.orderservice.monitor.MemoryMonitor - Heap memory usage at 61% (1200MB/2048MB) - approaching OutOfMemory threshold
+2026-07-30 09:00:36.695 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (99ms)
+2026-07-30 09:00:36.983 INFO  [http-nio-8080-exec-14] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (93ms)
+2026-07-30 09:00:37.113 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (98ms)
+2026-07-30 09:00:37.216 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (138ms)
+2026-07-30 09:00:37.509 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (122ms)
+2026-07-30 09:00:37.821 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 66% (13/20 threads active) - approaching capacity
+2026-07-30 09:00:37.921 INFO  [http-nio-8080-exec-1] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (149ms)
+2026-07-30 09:00:38.286 INFO  [http-nio-8080-exec-3] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (125ms)
+2026-07-30 09:00:38.454 ERROR [http-nio-8080-exec-11] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/shipping/quote -> 500 Internal Server Error
+2026-07-30 09:00:38.554 INFO  [http-nio-8080-exec-14] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (161ms)
+2026-07-30 09:00:38.714 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (149ms)
+2026-07-30 09:00:39.043 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (221ms)
+2026-07-30 09:00:39.371 INFO  [http-nio-8080-exec-20] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (54ms)
+2026-07-30 09:00:39.597 INFO  [http-nio-8080-exec-20] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (65ms)
+2026-07-30 09:00:39.713 ERROR [http-nio-8080-exec-20] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/orders/{id} -> 500 Internal Server Error
+2026-07-30 09:00:39.813 INFO  [http-nio-8080-exec-14] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (113ms)
+2026-07-30 09:00:40.182 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (95ms)
+2026-07-30 09:00:40.381 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (86ms)
+2026-07-30 09:00:40.733 WARN  [gc-monitor] com.company.orderservice.monitor.GCMonitor - GC pause detected: G1 Old Generation collection took 850ms
+2026-07-30 09:00:40.833 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (126ms)
+2026-07-30 09:00:40.934 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (139ms)
+2026-07-30 09:00:41.148 INFO  [http-nio-8080-exec-10] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (114ms)
+2026-07-30 09:00:41.262 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (142ms)
+2026-07-30 09:00:41.584 INFO  [http-nio-8080-exec-14] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (107ms)
+2026-07-30 09:00:41.696 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 69% (13/20 threads active) - approaching capacity
+2026-07-30 09:00:41.796 ERROR [http-nio-8080-exec-3] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/orders -> 500 Internal Server Error
+2026-07-30 09:00:41.896 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (118ms)
+2026-07-30 09:00:42.105 INFO  [http-nio-8080-exec-20] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (34ms)
+2026-07-30 09:00:42.429 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (187ms)
+2026-07-30 09:00:42.536 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (121ms)
+2026-07-30 09:00:42.922 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (128ms)
+2026-07-30 09:00:43.077 WARN  [gc-monitor] com.company.orderservice.monitor.MemoryMonitor - Heap memory usage at 67% (1300MB/2048MB) - approaching OutOfMemory threshold
+2026-07-30 09:00:43.177 INFO  [http-nio-8080-exec-10] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (100ms)
+2026-07-30 09:00:43.459 INFO  [http-nio-8080-exec-11] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (74ms)
+2026-07-30 09:00:43.713 INFO  [http-nio-8080-exec-6] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (173ms)
+2026-07-30 09:00:43.832 ERROR [http-nio-8080-exec-18] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/customers/{id} -> 500 Internal Server Error
+2026-07-30 09:00:43.932 INFO  [http-nio-8080-exec-11] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (202ms)
+2026-07-30 09:00:44.112 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (109ms)
+2026-07-30 09:00:44.508 INFO  [http-nio-8080-exec-6] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (149ms)
+2026-07-30 09:00:44.833 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (152ms)
+2026-07-30 09:00:45.016 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (117ms)
+2026-07-30 09:00:45.190 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (162ms)
+2026-07-30 09:00:45.309 INFO  [http-nio-8080-exec-8] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (62ms)
+2026-07-30 09:00:45.605 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 72% (14/20 threads active) - approaching capacity
+2026-07-30 09:00:45.705 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (110ms)
+2026-07-30 09:00:46.070 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (152ms)
+2026-07-30 09:00:46.185 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (128ms)
+2026-07-30 09:00:46.397 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (115ms)
+2026-07-30 09:00:46.529 INFO  [http-nio-8080-exec-20] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (189ms)
+2026-07-30 09:00:46.640 INFO  [http-nio-8080-exec-2] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (131ms)
+2026-07-30 09:00:46.984 INFO  [http-nio-8080-exec-14] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (119ms)
+2026-07-30 09:00:47.140 INFO  [http-nio-8080-exec-7] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (134ms)
+2026-07-30 09:00:47.362 INFO  [http-nio-8080-exec-18] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (71ms)
+2026-07-30 09:00:47.658 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (179ms)
+2026-07-30 09:00:48.044 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (115ms)
+2026-07-30 09:00:48.269 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (141ms)
+2026-07-30 09:00:48.652 INFO  [http-nio-8080-exec-6] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (181ms)
+2026-07-30 09:00:48.998 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (123ms)
+2026-07-30 09:00:49.263 INFO  [http-nio-8080-exec-13] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (99ms)
+2026-07-30 09:00:49.585 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 75% (15/20 threads active) - approaching capacity
+2026-07-30 09:00:49.685 WARN  [gc-monitor] com.company.orderservice.monitor.MemoryMonitor - Heap memory usage at 73% (1400MB/2048MB) - approaching OutOfMemory threshold
+2026-07-30 09:00:49.785 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (132ms)
+2026-07-30 09:00:49.917 INFO  [http-nio-8080-exec-7] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (140ms)
+2026-07-30 09:00:50.268 ERROR [http-nio-8080-exec-16] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/inventory/check -> 500 Internal Server Error
+2026-07-30 09:00:50.368 INFO  [http-nio-8080-exec-2] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (155ms)
+2026-07-30 09:00:50.661 INFO  [http-nio-8080-exec-20] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (102ms)
+2026-07-30 09:00:51.009 INFO  [http-nio-8080-exec-7] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (80ms)
+2026-07-30 09:00:51.217 INFO  [http-nio-8080-exec-7] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (148ms)
+2026-07-30 09:00:51.517 INFO  [http-nio-8080-exec-13] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (45ms)
+2026-07-30 09:00:51.812 INFO  [http-nio-8080-exec-8] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (141ms)
+2026-07-30 09:00:52.110 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (174ms)
+2026-07-30 09:00:52.349 INFO  [http-nio-8080-exec-20] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (128ms)
+2026-07-30 09:00:52.693 INFO  [http-nio-8080-exec-3] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (95ms)
+2026-07-30 09:00:52.944 INFO  [http-nio-8080-exec-2] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (149ms)
+2026-07-30 09:00:53.069 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (164ms)
+2026-07-30 09:00:53.364 INFO  [http-nio-8080-exec-1] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (135ms)
+2026-07-30 09:00:53.522 INFO  [http-nio-8080-exec-6] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (142ms)
+2026-07-30 09:00:53.872 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 80% (16/20 threads active) - approaching capacity
+2026-07-30 09:00:53.972 WARN  [gc-monitor] com.company.orderservice.monitor.MemoryMonitor - Heap memory usage at 75% (1500MB/2048MB) - approaching OutOfMemory threshold
+2026-07-30 09:00:54.072 INFO  [http-nio-8080-exec-11] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (30ms)
+2026-07-30 09:00:54.444 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (73ms)
+2026-07-30 09:00:54.640 ERROR [http-nio-8080-exec-6] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:00:54.940 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:00:55.140 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (89ms)
+2026-07-30 09:00:55.508 ERROR [http-nio-8080-exec-9] com.company.orderservice.service.PaymentService - Payment processing failed for order
+java.net.SocketTimeoutException: Read timed out
+	at com.company.orderservice.client.PaymentGatewayClient.charge(PaymentGatewayClient.java:203)
+	at com.company.orderservice.service.PaymentService.process(PaymentService.java:88)
+	at com.company.orderservice.controller.PaymentController.processPayment(PaymentController.java:51)
+2026-07-30 09:00:55.808 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (95ms)
+2026-07-30 09:00:56.075 ERROR [http-nio-8080-exec-18] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:00:56.375 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:00:56.575 ERROR [http-nio-8080-exec-12] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/inventory/check -> 500 Internal Server Error
+2026-07-30 09:00:56.675 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (91ms)
+2026-07-30 09:00:56.883 INFO  [http-nio-8080-exec-6] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (119ms)
+2026-07-30 09:00:57.076 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 81% (16/20 threads active) - approaching capacity
+2026-07-30 09:00:57.176 ERROR [http-nio-8080-exec-10] com.company.orderservice.service.PaymentService - Payment processing failed for order
+java.net.SocketTimeoutException: Read timed out
+	at com.company.orderservice.client.PaymentGatewayClient.charge(PaymentGatewayClient.java:203)
+	at com.company.orderservice.service.PaymentService.process(PaymentService.java:88)
+	at com.company.orderservice.controller.PaymentController.processPayment(PaymentController.java:51)
+2026-07-30 09:00:57.476 ERROR [http-nio-8080-exec-17] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/inventory/check -> 500 Internal Server Error
+2026-07-30 09:00:57.576 WARN  [gc-monitor] com.company.orderservice.monitor.MemoryMonitor - Heap memory usage at 77% (1548MB/2048MB) - approaching OutOfMemory threshold
+2026-07-30 09:00:57.676 ERROR [http-nio-8080-exec-8] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:00:57.976 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:00:58.176 ERROR [http-nio-8080-exec-2] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:00:58.476 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:00:58.676 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (107ms)
+2026-07-30 09:00:58.933 INFO  [http-nio-8080-exec-10] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (145ms)
+2026-07-30 09:00:59.080 ERROR [http-nio-8080-exec-8] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:00:59.380 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:00:59.580 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (148ms)
+2026-07-30 09:00:59.801 ERROR [http-nio-8080-exec-1] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:00.001 INFO  [http-nio-8080-exec-18] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (76ms)
+2026-07-30 09:01:00.176 INFO  [http-nio-8080-exec-18] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (90ms)
+2026-07-30 09:01:00.331 ERROR [http-nio-8080-exec-4] com.company.orderservice.service.PaymentService - Payment processing failed for order
+java.net.SocketTimeoutException: Read timed out
+	at com.company.orderservice.client.PaymentGatewayClient.charge(PaymentGatewayClient.java:203)
+	at com.company.orderservice.service.PaymentService.process(PaymentService.java:88)
+	at com.company.orderservice.controller.PaymentController.processPayment(PaymentController.java:51)
+2026-07-30 09:01:00.631 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 82% (16/20 threads active) - approaching capacity
+2026-07-30 09:01:00.731 INFO  [http-nio-8080-exec-18] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (140ms)
+2026-07-30 09:01:00.987 ERROR [http-nio-8080-exec-20] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/orders/{id} -> 500 Internal Server Error
+2026-07-30 09:01:01.087 ERROR [http-nio-8080-exec-2] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:01.387 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:01.587 WARN  [gc-monitor] com.company.orderservice.monitor.MemoryMonitor - Heap memory usage at 79% (1596MB/2048MB) - approaching OutOfMemory threshold
+2026-07-30 09:01:01.687 INFO  [http-nio-8080-exec-18] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (111ms)
+2026-07-30 09:01:02.040 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (122ms)
+2026-07-30 09:01:02.333 ERROR [http-nio-8080-exec-9] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:02.633 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:02.833 ERROR [http-nio-8080-exec-18] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:03.033 INFO  [http-nio-8080-exec-7] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (138ms)
+2026-07-30 09:01:03.184 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 83% (16/20 threads active) - approaching capacity
+2026-07-30 09:01:03.284 ERROR [http-nio-8080-exec-6] com.company.orderservice.service.PaymentService - Payment processing failed for order
+java.net.SocketTimeoutException: Read timed out
+	at com.company.orderservice.client.PaymentGatewayClient.charge(PaymentGatewayClient.java:203)
+	at com.company.orderservice.service.PaymentService.process(PaymentService.java:88)
+	at com.company.orderservice.controller.PaymentController.processPayment(PaymentController.java:51)
+2026-07-30 09:01:03.584 ERROR [http-nio-8080-exec-13] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:03.784 INFO  [http-nio-8080-exec-8] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (167ms)
+2026-07-30 09:01:04.026 INFO  [http-nio-8080-exec-1] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (89ms)
+2026-07-30 09:01:04.297 ERROR [http-nio-8080-exec-7] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:04.497 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (97ms)
+2026-07-30 09:01:04.605 ERROR [http-nio-8080-exec-6] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:04.905 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:05.105 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (110ms)
+2026-07-30 09:01:05.214 ERROR [http-nio-8080-exec-2] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:05.514 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:05.714 WARN  [gc-monitor] com.company.orderservice.monitor.MemoryMonitor - Heap memory usage at 82% (1644MB/2048MB) - approaching OutOfMemory threshold
+2026-07-30 09:01:05.814 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (151ms)
+2026-07-30 09:01:06.178 ERROR [http-nio-8080-exec-8] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/orders/{id} -> 500 Internal Server Error
+2026-07-30 09:01:06.278 INFO  [http-nio-8080-exec-2] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (214ms)
+2026-07-30 09:01:06.626 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 85% (17/20 threads active) - approaching capacity
+2026-07-30 09:01:06.726 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (174ms)
+2026-07-30 09:01:06.914 ERROR [http-nio-8080-exec-9] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:07.114 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (158ms)
+2026-07-30 09:01:07.429 ERROR [http-nio-8080-exec-11] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/customers/{id} -> 500 Internal Server Error
+2026-07-30 09:01:07.529 ERROR [http-nio-8080-exec-14] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:07.829 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:08.029 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (84ms)
+2026-07-30 09:01:08.343 ERROR [http-nio-8080-exec-14] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:08.543 INFO  [http-nio-8080-exec-7] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (171ms)
+2026-07-30 09:01:08.644 INFO  [http-nio-8080-exec-6] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (36ms)
+2026-07-30 09:01:08.918 ERROR [http-nio-8080-exec-7] com.company.orderservice.service.PaymentService - Payment processing failed for order
+java.net.SocketTimeoutException: Read timed out
+	at com.company.orderservice.client.PaymentGatewayClient.charge(PaymentGatewayClient.java:203)
+	at com.company.orderservice.service.PaymentService.process(PaymentService.java:88)
+	at com.company.orderservice.controller.PaymentController.processPayment(PaymentController.java:51)
+2026-07-30 09:01:09.218 WARN  [gc-monitor] com.company.orderservice.monitor.MemoryMonitor - Heap memory usage at 84% (1692MB/2048MB) - approaching OutOfMemory threshold
+2026-07-30 09:01:09.318 ERROR [http-nio-8080-exec-6] com.company.orderservice.service.PaymentService - Payment processing failed for order
+java.net.SocketTimeoutException: Read timed out
+	at com.company.orderservice.client.PaymentGatewayClient.charge(PaymentGatewayClient.java:203)
+	at com.company.orderservice.service.PaymentService.process(PaymentService.java:88)
+	at com.company.orderservice.controller.PaymentController.processPayment(PaymentController.java:51)
+2026-07-30 09:01:09.618 INFO  [http-nio-8080-exec-3] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (64ms)
+2026-07-30 09:01:09.906 ERROR [http-nio-8080-exec-13] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/payments/process -> 500 Internal Server Error
+2026-07-30 09:01:10.006 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 86% (17/20 threads active) - approaching capacity
+2026-07-30 09:01:10.106 INFO  [http-nio-8080-exec-1] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (128ms)
+2026-07-30 09:01:10.320 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (150ms)
+2026-07-30 09:01:10.524 ERROR [http-nio-8080-exec-5] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:10.724 ERROR [http-nio-8080-exec-15] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:10.924 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (124ms)
+2026-07-30 09:01:11.177 ERROR [http-nio-8080-exec-20] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:11.377 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (155ms)
+2026-07-30 09:01:11.658 ERROR [http-nio-8080-exec-8] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:11.858 INFO  [http-nio-8080-exec-7] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (183ms)
+2026-07-30 09:01:12.007 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (109ms)
+2026-07-30 09:01:12.327 ERROR [http-nio-8080-exec-7] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/orders -> 500 Internal Server Error
+2026-07-30 09:01:12.427 ERROR [http-nio-8080-exec-7] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:12.727 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:12.927 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 87% (17/20 threads active) - approaching capacity
+2026-07-30 09:01:13.027 WARN  [gc-monitor] com.company.orderservice.monitor.MemoryMonitor - Heap memory usage at 87% (1740MB/2048MB) - approaching OutOfMemory threshold
+2026-07-30 09:01:13.127 WARN  [gc-monitor] com.company.orderservice.monitor.GCMonitor - GC pause detected: G1 Old Generation collection took 2450ms
+2026-07-30 09:01:13.227 INFO  [http-nio-8080-exec-14] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (139ms)
+2026-07-30 09:01:13.466 ERROR [http-nio-8080-exec-20] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:13.766 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:13.966 ERROR [http-nio-8080-exec-8] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:14.266 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:14.466 ERROR [http-nio-8080-exec-19] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/customers/{id} -> 500 Internal Server Error
+2026-07-30 09:01:14.566 ERROR [http-nio-8080-exec-8] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/shipping/quote -> 500 Internal Server Error
+2026-07-30 09:01:14.666 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (230ms)
+2026-07-30 09:01:15.001 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 88% (17/20 threads active) - approaching capacity
+2026-07-30 09:01:15.101 ERROR [http-nio-8080-exec-14] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:15.301 INFO  [http-nio-8080-exec-1] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (150ms)
+2026-07-30 09:01:15.669 ERROR [http-nio-8080-exec-1] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:15.869 WARN  [gc-monitor] com.company.orderservice.monitor.MemoryMonitor - Heap memory usage at 89% (1788MB/2048MB) - approaching OutOfMemory threshold
+2026-07-30 09:01:15.969 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (82ms)
+2026-07-30 09:01:16.144 ERROR [http-nio-8080-exec-7] com.company.orderservice.service.PaymentService - Payment processing failed for order
+java.net.SocketTimeoutException: Read timed out
+	at com.company.orderservice.client.PaymentGatewayClient.charge(PaymentGatewayClient.java:203)
+	at com.company.orderservice.service.PaymentService.process(PaymentService.java:88)
+	at com.company.orderservice.controller.PaymentController.processPayment(PaymentController.java:51)
+2026-07-30 09:01:16.444 ERROR [http-nio-8080-exec-19] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:16.744 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:16.944 INFO  [http-nio-8080-exec-7] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (112ms)
+2026-07-30 09:01:17.201 ERROR [http-nio-8080-exec-15] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/orders/{id} -> 500 Internal Server Error
+2026-07-30 09:01:17.301 ERROR [http-nio-8080-exec-17] com.company.orderservice.service.PaymentService - Payment processing failed for order
+java.net.SocketTimeoutException: Read timed out
+	at com.company.orderservice.client.PaymentGatewayClient.charge(PaymentGatewayClient.java:203)
+	at com.company.orderservice.service.PaymentService.process(PaymentService.java:88)
+	at com.company.orderservice.controller.PaymentController.processPayment(PaymentController.java:51)
+2026-07-30 09:01:17.601 ERROR [http-nio-8080-exec-20] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:17.901 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:18.101 INFO  [http-nio-8080-exec-2] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (121ms)
+2026-07-30 09:01:18.315 ERROR [http-nio-8080-exec-3] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:18.615 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:18.815 INFO  [http-nio-8080-exec-14] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (108ms)
+2026-07-30 09:01:18.948 ERROR [http-nio-8080-exec-13] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:19.148 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 90% (18/20 threads active) - approaching capacity
+2026-07-30 09:01:19.248 INFO  [http-nio-8080-exec-13] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (84ms)
+2026-07-30 09:01:19.398 INFO  [http-nio-8080-exec-7] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (79ms)
+2026-07-30 09:01:19.604 INFO  [http-nio-8080-exec-10] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (70ms)
+2026-07-30 09:01:19.938 WARN  [gc-monitor] com.company.orderservice.monitor.MemoryMonitor - Heap memory usage at 91% (1836MB/2048MB) - approaching OutOfMemory threshold
+2026-07-30 09:01:20.038 ERROR [http-nio-8080-exec-13] com.company.orderservice.service.PaymentService - Payment processing failed for order
+java.net.SocketTimeoutException: Read timed out
+	at com.company.orderservice.client.PaymentGatewayClient.charge(PaymentGatewayClient.java:203)
+	at com.company.orderservice.service.PaymentService.process(PaymentService.java:88)
+	at com.company.orderservice.controller.PaymentController.processPayment(PaymentController.java:51)
+2026-07-30 09:01:20.338 INFO  [http-nio-8080-exec-10] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (78ms)
+2026-07-30 09:01:20.635 ERROR [http-nio-8080-exec-10] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/payments/process -> 500 Internal Server Error
+2026-07-30 09:01:20.735 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (125ms)
+2026-07-30 09:01:20.995 ERROR [http-nio-8080-exec-19] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:21.195 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 91% (18/20 threads active) - approaching capacity
+2026-07-30 09:01:21.295 WARN  [gc-monitor] com.company.orderservice.monitor.GCMonitor - GC pause detected: G1 Old Generation collection took 4120ms
+2026-07-30 09:01:21.395 INFO  [http-nio-8080-exec-1] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (175ms)
+2026-07-30 09:01:21.677 ERROR [http-nio-8080-exec-15] com.company.orderservice.service.PaymentService - Payment processing failed for order
+java.net.SocketTimeoutException: Read timed out
+	at com.company.orderservice.client.PaymentGatewayClient.charge(PaymentGatewayClient.java:203)
+	at com.company.orderservice.service.PaymentService.process(PaymentService.java:88)
+	at com.company.orderservice.controller.PaymentController.processPayment(PaymentController.java:51)
+2026-07-30 09:01:21.977 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (102ms)
+2026-07-30 09:01:22.314 ERROR [http-nio-8080-exec-20] com.company.orderservice.service.PaymentService - Payment processing failed for order
+java.net.SocketTimeoutException: Read timed out
+	at com.company.orderservice.client.PaymentGatewayClient.charge(PaymentGatewayClient.java:203)
+	at com.company.orderservice.service.PaymentService.process(PaymentService.java:88)
+	at com.company.orderservice.controller.PaymentController.processPayment(PaymentController.java:51)
+2026-07-30 09:01:22.614 ERROR [http-nio-8080-exec-18] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:22.914 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:23.114 INFO  [http-nio-8080-exec-7] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (187ms)
+2026-07-30 09:01:23.381 ERROR [http-nio-8080-exec-8] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:23.581 WARN  [gc-monitor] com.company.orderservice.monitor.MemoryMonitor - Heap memory usage at 94% (1884MB/2048MB) - approaching OutOfMemory threshold
+2026-07-30 09:01:23.681 INFO  [http-nio-8080-exec-6] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (156ms)
+2026-07-30 09:01:23.829 ERROR [http-nio-8080-exec-19] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:24.029 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 92% (18/20 threads active) - approaching capacity
+2026-07-30 09:01:24.129 INFO  [http-nio-8080-exec-10] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (90ms)
+2026-07-30 09:01:24.283 ERROR [http-nio-8080-exec-1] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/orders -> 500 Internal Server Error
+2026-07-30 09:01:24.383 ERROR [http-nio-8080-exec-4] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:24.583 ERROR [http-nio-8080-exec-14] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:24.883 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:25.083 ERROR [http-nio-8080-exec-12] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:25.283 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (149ms)
+2026-07-30 09:01:25.468 ERROR [http-nio-8080-exec-9] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:25.668 WARN  [gc-monitor] com.company.orderservice.monitor.MemoryMonitor - Heap memory usage at 96% (1932MB/2048MB) - approaching OutOfMemory threshold
+2026-07-30 09:01:25.768 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (62ms)
+2026-07-30 09:01:26.161 ERROR [http-nio-8080-exec-11] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:26.361 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 93% (18/20 threads active) - approaching capacity
+2026-07-30 09:01:26.461 ERROR [http-nio-8080-exec-3] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:26.761 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:26.961 ERROR [http-nio-8080-exec-18] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:27.261 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:27.461 INFO  [http-nio-8080-exec-10] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (219ms)
+2026-07-30 09:01:27.575 INFO  [http-nio-8080-exec-2] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (166ms)
+2026-07-30 09:01:27.863 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (90ms)
+2026-07-30 09:01:27.993 ERROR [http-nio-8080-exec-2] com.company.orderservice.service.PaymentService - Payment processing failed for order
+java.net.SocketTimeoutException: Read timed out
+	at com.company.orderservice.client.PaymentGatewayClient.charge(PaymentGatewayClient.java:203)
+	at com.company.orderservice.service.PaymentService.process(PaymentService.java:88)
+	at com.company.orderservice.controller.PaymentController.processPayment(PaymentController.java:51)
+2026-07-30 09:01:28.293 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (200ms)
+2026-07-30 09:01:28.629 INFO  [http-nio-8080-exec-10] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (126ms)
+2026-07-30 09:01:28.740 ERROR [http-nio-8080-exec-19] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:29.040 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:29.240 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 95% (19/20 threads active) - approaching capacity
+2026-07-30 09:01:29.340 WARN  [gc-monitor] com.company.orderservice.monitor.MemoryMonitor - Heap memory usage at 96% (1970MB/2048MB) - approaching OutOfMemory threshold
+2026-07-30 09:01:29.440 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (139ms)
+2026-07-30 09:01:29.712 INFO  [http-nio-8080-exec-1] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (124ms)
+2026-07-30 09:01:29.990 ERROR [http-nio-8080-exec-14] com.company.orderservice.service.PaymentService - Payment processing failed for order
+java.net.SocketTimeoutException: Read timed out
+	at com.company.orderservice.client.PaymentGatewayClient.charge(PaymentGatewayClient.java:203)
+	at com.company.orderservice.service.PaymentService.process(PaymentService.java:88)
+	at com.company.orderservice.controller.PaymentController.processPayment(PaymentController.java:51)
+2026-07-30 09:01:30.290 ERROR [http-nio-8080-exec-16] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:30.590 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:30.790 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (123ms)
+2026-07-30 09:01:31.186 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (120ms)
+2026-07-30 09:01:31.292 INFO  [http-nio-8080-exec-6] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (75ms)
+2026-07-30 09:01:31.611 ERROR [http-nio-8080-exec-18] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:31.911 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:32.111 ERROR [http-nio-8080-exec-2] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:32.311 ERROR [http-nio-8080-exec-1] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:32.611 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:32.811 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 95% (19/20 threads active) - approaching capacity
+2026-07-30 09:01:32.911 ERROR [cache-refresh-scheduler-1] com.company.orderservice.Application - java.lang.OutOfMemoryError: Java heap space
+	at com.company.orderservice.cache.InventoryCache.loadFullCatalog(InventoryCache.java:167)
+	at com.company.orderservice.service.InventoryService.refresh(InventoryService.java:94)
+	at com.company.orderservice.scheduler.CacheRefreshJob.run(CacheRefreshJob.java:32)
+2026-07-30 09:01:33.411 Warning  Pod  order-service-6c9f8d7b45-p4x7k  OOMKilled: container order-service exceeded memory limit (2048Mi)
+2026-07-30 09:01:36.411 Warning  Pod  order-service-6c9f8d7b45-p4x7k  Back-off restarting failed container
+2026-07-30 09:01:41.411 Normal   Pod  order-service-6c9f8d7b45-p4x7k  Container image already present on machine
+2026-07-30 09:01:43.411 Normal   Pod  order-service-6c9f8d7b45-p4x7k  Created container order-service
+2026-07-30 09:01:44.411 Normal   Pod  order-service-6c9f8d7b45-p4x7k  Started container order-service
+2026-07-30 09:01:46.411 INFO  [main] com.company.orderservice.Application - Started Application in 5.342 seconds (JVM running for 5.812)
+2026-07-30 09:01:48.411 ERROR [http-nio-8080-exec-10] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/shipping/quote -> 500 Internal Server Error
+2026-07-30 09:01:48.511 WARN  [gc-monitor] com.company.orderservice.monitor.MemoryMonitor - Heap memory usage at 96% (1970MB/2048MB) - approaching OutOfMemory threshold
+2026-07-30 09:01:48.611 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (169ms)
+2026-07-30 09:01:48.852 ERROR [http-nio-8080-exec-4] com.company.orderservice.service.PaymentService - Payment processing failed for order
+java.net.SocketTimeoutException: Read timed out
+	at com.company.orderservice.client.PaymentGatewayClient.charge(PaymentGatewayClient.java:203)
+	at com.company.orderservice.service.PaymentService.process(PaymentService.java:88)
+	at com.company.orderservice.controller.PaymentController.processPayment(PaymentController.java:51)
+2026-07-30 09:01:49.152 INFO  [http-nio-8080-exec-6] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (134ms)
+2026-07-30 09:01:49.535 ERROR [http-nio-8080-exec-2] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:49.735 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 95% (19/20 threads active) - approaching capacity
+2026-07-30 09:01:49.835 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (76ms)
+2026-07-30 09:01:50.110 INFO  [http-nio-8080-exec-13] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (71ms)
+2026-07-30 09:01:50.453 ERROR [http-nio-8080-exec-1] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:50.653 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (168ms)
+2026-07-30 09:01:50.929 ERROR [http-nio-8080-exec-5] com.company.orderservice.repository.OrderRepository - Failed to save order: connection pool exhausted
+java.sql.SQLTimeoutException: Timeout waiting for connection from pool after 30000ms
+	at com.company.orderservice.db.ConnectionPool.getConnection(ConnectionPool.java:145)
+	at com.company.orderservice.repository.OrderRepository.save(OrderRepository.java:78)
+	at com.company.orderservice.service.OrderService.createOrder(OrderService.java:112)
+	at com.company.orderservice.controller.OrderController.create(OrderController.java:45)
+2026-07-30 09:01:51.229 ERROR [connection-pool-monitor] com.company.orderservice.db.HikariPoolMonitor - HikariPool-1 - Connection is not available, total=20, active=20, idle=0, waiting=14
+2026-07-30 09:01:51.429 WARN  [gc-monitor] com.company.orderservice.monitor.MemoryMonitor - Heap memory usage at 96% (1970MB/2048MB) - approaching OutOfMemory threshold
+2026-07-30 09:01:51.529 ERROR [http-nio-8080-exec-18] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:51.729 INFO  [http-nio-8080-exec-3] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (52ms)
+2026-07-30 09:01:52.065 ERROR [http-nio-8080-exec-2] com.company.orderservice.client.InventoryClient - Connection refused: connect to inventory-service.perf-test.svc.cluster.local:8080
+java.net.ConnectException: Connection refused
+	at com.company.orderservice.client.InventoryClient.checkStock(InventoryClient.java:61)
+	at com.company.orderservice.service.OrderService.validateStock(OrderService.java:140)
+2026-07-30 09:01:52.265 INFO  [http-nio-8080-exec-13] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (96ms)
+2026-07-30 09:01:52.643 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 60% (12/20 threads active) - approaching capacity
+2026-07-30 09:01:52.743 INFO  [http-nio-8080-exec-1] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (103ms)
+2026-07-30 09:01:53.074 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (124ms)
+2026-07-30 09:01:53.440 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (98ms)
+2026-07-30 09:01:53.568 INFO  [http-nio-8080-exec-10] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (106ms)
+2026-07-30 09:01:53.788 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (251ms)
+2026-07-30 09:01:54.148 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (157ms)
+2026-07-30 09:01:54.343 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (106ms)
+2026-07-30 09:01:54.740 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (108ms)
+2026-07-30 09:01:54.919 INFO  [http-nio-8080-exec-14] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (184ms)
+2026-07-30 09:01:55.095 INFO  [http-nio-8080-exec-7] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (97ms)
+2026-07-30 09:01:55.220 INFO  [http-nio-8080-exec-18] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (150ms)
+2026-07-30 09:01:55.579 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (87ms)
+2026-07-30 09:01:55.756 INFO  [http-nio-8080-exec-3] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (94ms)
+2026-07-30 09:01:55.967 INFO  [http-nio-8080-exec-8] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (118ms)
+2026-07-30 09:01:56.350 INFO  [http-nio-8080-exec-2] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (182ms)
+2026-07-30 09:01:56.527 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (76ms)
+2026-07-30 09:01:56.671 INFO  [http-nio-8080-exec-7] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (119ms)
+2026-07-30 09:01:56.998 INFO  [http-nio-8080-exec-11] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (66ms)
+2026-07-30 09:01:57.215 INFO  [http-nio-8080-exec-13] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (52ms)
+2026-07-30 09:01:57.455 INFO  [http-nio-8080-exec-2] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (146ms)
+2026-07-30 09:01:57.579 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (147ms)
+2026-07-30 09:01:57.956 INFO  [http-nio-8080-exec-1] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (153ms)
+2026-07-30 09:01:58.192 INFO  [http-nio-8080-exec-8] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (148ms)
+2026-07-30 09:01:58.359 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (145ms)
+2026-07-30 09:01:58.590 INFO  [http-nio-8080-exec-14] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (120ms)
+2026-07-30 09:01:58.791 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (129ms)
+2026-07-30 09:01:59.027 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (199ms)
+2026-07-30 09:01:59.295 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (149ms)
+2026-07-30 09:01:59.687 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (136ms)
+2026-07-30 09:01:59.911 INFO  [http-nio-8080-exec-10] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (111ms)
+2026-07-30 09:02:00.144 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 53% (10/20 threads active) - approaching capacity
+2026-07-30 09:02:00.244 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (53ms)
+2026-07-30 09:02:00.400 INFO  [http-nio-8080-exec-14] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (144ms)
+2026-07-30 09:02:00.671 INFO  [http-nio-8080-exec-6] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (128ms)
+2026-07-30 09:02:00.951 INFO  [http-nio-8080-exec-20] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (57ms)
+2026-07-30 09:02:01.280 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (92ms)
+2026-07-30 09:02:01.555 INFO  [http-nio-8080-exec-3] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (70ms)
+2026-07-30 09:02:01.907 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (80ms)
+2026-07-30 09:02:02.034 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (186ms)
+2026-07-30 09:02:02.209 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (139ms)
+2026-07-30 09:02:02.415 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (152ms)
+2026-07-30 09:02:02.622 INFO  [http-nio-8080-exec-11] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (155ms)
+2026-07-30 09:02:02.810 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (81ms)
+2026-07-30 09:02:03.069 INFO  [http-nio-8080-exec-1] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (147ms)
+2026-07-30 09:02:03.219 INFO  [http-nio-8080-exec-18] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (114ms)
+2026-07-30 09:02:03.348 INFO  [http-nio-8080-exec-7] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (173ms)
+2026-07-30 09:02:03.605 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (126ms)
+2026-07-30 09:02:03.920 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (72ms)
+2026-07-30 09:02:04.053 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (121ms)
+2026-07-30 09:02:04.412 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (119ms)
+2026-07-30 09:02:04.793 INFO  [http-nio-8080-exec-14] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (96ms)
+2026-07-30 09:02:05.012 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (57ms)
+2026-07-30 09:02:05.365 INFO  [http-nio-8080-exec-11] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (164ms)
+2026-07-30 09:02:05.562 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (160ms)
+2026-07-30 09:02:05.771 INFO  [http-nio-8080-exec-3] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (77ms)
+2026-07-30 09:02:05.932 INFO  [http-nio-8080-exec-8] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (84ms)
+2026-07-30 09:02:06.222 INFO  [http-nio-8080-exec-2] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (139ms)
+2026-07-30 09:02:06.597 INFO  [http-nio-8080-exec-18] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (98ms)
+2026-07-30 09:02:06.827 INFO  [http-nio-8080-exec-10] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (99ms)
+2026-07-30 09:02:07.031 INFO  [http-nio-8080-exec-2] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (207ms)
+2026-07-30 09:02:07.157 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (97ms)
+2026-07-30 09:02:07.410 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 45% (9/20 threads active) - approaching capacity
+2026-07-30 09:02:07.510 INFO  [http-nio-8080-exec-14] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (112ms)
+2026-07-30 09:02:07.832 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (149ms)
+2026-07-30 09:02:08.127 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (146ms)
+2026-07-30 09:02:08.368 INFO  [http-nio-8080-exec-8] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (98ms)
+2026-07-30 09:02:08.525 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (157ms)
+2026-07-30 09:02:08.722 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (122ms)
+2026-07-30 09:02:08.911 INFO  [http-nio-8080-exec-6] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (193ms)
+2026-07-30 09:02:09.208 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (153ms)
+2026-07-30 09:02:09.464 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (100ms)
+2026-07-30 09:02:09.749 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (151ms)
+2026-07-30 09:02:09.930 INFO  [http-nio-8080-exec-5] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (122ms)
+2026-07-30 09:02:10.179 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - POST /api/orders/{id} -> 200 OK (117ms)
+2026-07-30 09:02:10.534 INFO  [http-nio-8080-exec-20] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (179ms)
+2026-07-30 09:02:10.720 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (170ms)
+2026-07-30 09:02:11.015 ERROR [http-nio-8080-exec-16] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/payments/process -> 500 Internal Server Error
+2026-07-30 09:02:11.115 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (133ms)
+2026-07-30 09:02:11.346 INFO  [http-nio-8080-exec-8] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (151ms)
+2026-07-30 09:02:11.543 INFO  [http-nio-8080-exec-8] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (131ms)
+2026-07-30 09:02:11.650 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (160ms)
+2026-07-30 09:02:11.912 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - POST /api/customers/{id} -> 200 OK (113ms)
+2026-07-30 09:02:12.119 INFO  [http-nio-8080-exec-12] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (78ms)
+2026-07-30 09:02:12.422 INFO  [http-nio-8080-exec-4] com.company.orderservice.controller.RequestLogger - GET /api/payments/process -> 200 OK (91ms)
+2026-07-30 09:02:12.786 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (148ms)
+2026-07-30 09:02:13.116 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (96ms)
+2026-07-30 09:02:13.268 INFO  [http-nio-8080-exec-3] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (58ms)
+2026-07-30 09:02:13.401 INFO  [http-nio-8080-exec-11] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (151ms)
+2026-07-30 09:02:13.658 INFO  [http-nio-8080-exec-7] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (92ms)
+2026-07-30 09:02:13.882 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (160ms)
+2026-07-30 09:02:14.189 ERROR [http-nio-8080-exec-1] com.company.orderservice.exception.GlobalExceptionHandler - Unhandled exception processing /api/inventory/check -> 500 Internal Server Error
+2026-07-30 09:02:14.289 INFO  [http-nio-8080-exec-18] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (152ms)
+2026-07-30 09:02:14.508 INFO  [http-nio-8080-exec-1] com.company.orderservice.controller.RequestLogger - POST /api/shipping/quote -> 200 OK (144ms)
+2026-07-30 09:02:14.870 INFO  [http-nio-8080-exec-17] com.company.orderservice.controller.RequestLogger - GET /api/orders/{id} -> 200 OK (124ms)
+2026-07-30 09:02:15.093 WARN  [tomcat-monitor] com.company.orderservice.monitor.ThreadPoolMonitor - Thread pool utilization at 38% (7/20 threads active) - approaching capacity
+2026-07-30 09:02:15.193 INFO  [http-nio-8080-exec-6] com.company.orderservice.controller.RequestLogger - GET /api/customers/{id} -> 200 OK (121ms)
+2026-07-30 09:02:15.316 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - POST /api/payments/process -> 200 OK (101ms)
+2026-07-30 09:02:15.658 INFO  [http-nio-8080-exec-1] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (124ms)
+2026-07-30 09:02:15.864 INFO  [http-nio-8080-exec-9] com.company.orderservice.controller.RequestLogger - GET /api/shipping/quote -> 200 OK (84ms)
+2026-07-30 09:02:16.222 INFO  [http-nio-8080-exec-3] com.company.orderservice.controller.RequestLogger - GET /api/inventory/check -> 200 OK (140ms)
+2026-07-30 09:02:16.338 INFO  [http-nio-8080-exec-19] com.company.orderservice.controller.RequestLogger - POST /api/orders -> 200 OK (172ms)
+2026-07-30 09:02:16.455 INFO  [http-nio-8080-exec-8] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (148ms)
+2026-07-30 09:02:16.649 INFO  [http-nio-8080-exec-15] com.company.orderservice.controller.RequestLogger - POST /api/inventory/check -> 200 OK (164ms)
+2026-07-30 09:02:16.930 INFO  [http-nio-8080-exec-16] com.company.orderservice.controller.RequestLogger - GET /api/orders -> 200 OK (121ms)
