@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -24,6 +23,14 @@ jobs:
         run: |
           pip install requests
 
+      - name: Verify Repository Structure
+        run: |
+          echo "Current Directory:"
+          pwd
+
+          echo "Repository Files:"
+          ls -R
+
       - name: Analyse OpenShift Logs
         env:
           AZURE_FOUNDRY_API_KEY: ${{ secrets.AZURE_FOUNDRY_API_KEY }}
@@ -32,16 +39,28 @@ jobs:
         run: |
           python scripts/analyse_openshift_logs.py
 
-      - name: Publish Summary
+      - name: Verify Generated Files
+        run: |
+          echo "Generated files in docs/"
+          ls -lrt docs/
+
+      - name: Publish Analysis to Job Summary
         run: |
           cat docs/summary.md >> $GITHUB_STEP_SUMMARY
 
-      - name: Commit Analysis
+      - name: Commit Updated Dashboard
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
 
-          git add docs/*
-          git commit -m "Update OpenShift analysis" || echo "No changes"
+          git add docs/
 
-          git push
+          git commit -m "Update OpenShift AI Analysis" || echo "No changes to commit"
+
+          git push origin main
+
+      - name: Upload Analysis Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenShift-AI-Analysis
+          path: docs/
