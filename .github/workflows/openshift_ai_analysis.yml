@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -19,8 +18,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          
 
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests markdown
 
       - name: Analyse OpenShift Logs
         env:
@@ -30,18 +32,32 @@ jobs:
         run: |
           python scripts/analyse_openshift_logs.py
 
-      - name: Publish Analysis
+      - name: Verify Generated Files
+        run: |
+          echo "Generated files:"
+          ls -lrt docs/
+
+      - name: Publish Analysis To Job Summary
         run: |
           cat docs/summary.md >> $GITHUB_STEP_SUMMARY
 
-      - name: Commit Updated Dashboard
+      - name: Add Dashboard URL To Summary
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 🌐 OpenShift Analysis Dashboard" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "https://abhireddi7823.github.io/OPENSHIFT-LOG-ANALYSIS/" >> $GITHUB_STEP_SUMMARY
+
+      - name: Commit Updated Report To Repository
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
 
           git add docs/
 
-          git commit -m "Update OpenShift Dashboard" || echo "No changes"
+          git commit -m "Update OpenShift Analysis Report" || echo "No changes to commit"
 
           git push
 
