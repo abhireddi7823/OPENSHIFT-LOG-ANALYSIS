@@ -38,12 +38,21 @@ jobs:
 
       - name: Verify Generated Files
         run: |
-          echo "Generated Files:"
+          echo "Generated Files"
           ls -lrt docs/
 
       - name: Publish Analysis To Summary
         run: |
           cat docs/summary.md >> $GITHUB_STEP_SUMMARY
+
+      - name: Add Dashboard Link
+        run: |
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 🌐 OpenShift Analysis Dashboard" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "[Click Here To Open Dashboard](https://abhireddi7823.github.io/OPENSHIFT-LOG-ANALYSIS/)" >> $GITHUB_STEP_SUMMARY
 
       - name: Upload Analysis Artifact
         uses: actions/upload-artifact@v4
