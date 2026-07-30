@@ -12,92 +12,35 @@ DEPLOYMENT = os.environ["AZURE_FOUNDRY_DEPLOYMENT"]
 DOCS = Path("docs")
 DOCS.mkdir(exist_ok=True)
 
-with open(
-    "logs/openshift.log",
-    "r",
-    encoding="utf-8",
-    errors="ignore"
-) as f:
+with open("logs/openshift.log", "r", encoding="utf-8", errors="ignore") as f:
     log_content = f.read()
 
-log_content = log_content[:100000]
-
 SYSTEM_PROMPT = """
-You are a Principal Performance Engineer.
+You are a Principal OpenShift Performance Engineer.
 
-Generate a professional OpenShift Performance Test Report.
-
-IMPORTANT:
+Generate a professional report.
 
 Use markdown tables.
 
-Example:
-
-| Field | Value |
-|--------|--------|
-| Report Name | OpenShift Performance Analysis |
-
-DO NOT output plain text tables.
-
-Return markdown only.
+Title:
 
 # 🚀 OpenShift Log Analysis – Performance Test Report
 
-## 1. Document Control
+Sections:
 
-## 2. Executive Summary
-
-## 3. Test Objectives & Scope
-
-## 4. System Under Test (SUT)
-
-Provide markdown table.
-
-## 5. Performance Scorecard
-
-Provide markdown table.
-
-## 6. Critical Findings
-
-Provide markdown table.
-
-## 7. Resource Utilization Analysis
-
-### CPU Analysis
-
-### Memory Analysis
-
-### Network Analysis
-
-### Storage Analysis
-
-## 8. Pod Health Analysis
-
-Provide markdown table.
-
-## 9. Performance Metrics Analysis
-
-## 10. Root Cause Analysis
-
-## 11. Recommendations
-
-### Immediate Actions
-
-### Short-Term Improvements
-
-### Long-Term Improvements
-
-## 12. Acceptance Criteria Summary
-
-Provide markdown table.
-
-## 13. Final Verdict
-
-✅ PASS
-
-⚠ PASS WITH OBSERVATIONS
-
-❌ FAIL
+1. Document Control
+2. Executive Summary
+3. Test Objectives & Scope
+4. System Under Test
+5. Performance Scorecard
+6. Critical Findings
+7. Resource Utilization Analysis
+8. Pod Health Analysis
+9. Performance Metrics Analysis
+10. Root Cause Analysis
+11. Recommendations
+12. Acceptance Criteria Summary
+13. Final Verdict
 """
 
 payload = {
@@ -109,7 +52,7 @@ payload = {
         },
         {
             "role": "user",
-            "content": log_content
+            "content": log_content[:100000]
         }
     ],
     "temperature": 0.2,
@@ -147,74 +90,69 @@ analysis = response.json()["choices"][0]["message"]["content"]
     encoding="utf-8"
 )
 
-html_report_body = markdown.markdown(
+html_body = markdown.markdown(
     analysis,
-    extensions=[
-        "tables",
-        "fenced_code"
-    ]
+    extensions=["tables"]
 )
 
 html = f"""
 <!DOCTYPE html>
 <html>
+
 <head>
 
 <meta charset="utf-8">
 
-<title>OpenShift Log Analysis Performance Report</title>
+<title>OpenShift Log Analysis</title>
 
 <style>
 
 body {{
-    font-family: Segoe UI, Arial, sans-serif;
-    background:#f5f7fa;
-    margin:0;
-    padding:30px;
+background:#f4f6f9;
+font-family:Segoe UI;
+padding:30px;
 }}
 
 .container {{
-    max-width:1400px;
-    margin:auto;
+max-width:1400px;
+margin:auto;
 }}
 
 .header {{
-    background:#c1121f;
-    color:white;
-    padding:25px;
-    border-radius:12px;
+background:#c1121f;
+color:white;
+padding:20px;
+border-radius:10px;
 }}
 
 .report {{
-    background:white;
-    margin-top:20px;
-    padding:30px;
-    border-radius:12px;
-    box-shadow:0 2px 10px rgba(0,0,0,.1);
+background:white;
+padding:30px;
+margin-top:20px;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
 }}
 
 table {{
-    width:100%;
-    border-collapse:collapse;
-    margin-bottom:20px;
+border-collapse:collapse;
+width:100%;
+}}
+
+table,th,td {{
+border:1px solid #ddd;
 }}
 
 th {{
-    background:#c1121f;
-    color:white;
+background:#c1121f;
+color:white;
 }}
 
-th, td {{
-    border:1px solid #ddd;
-    padding:10px;
+th,td {{
+padding:10px;
 }}
 
 h1,h2,h3 {{
-    color:#c1121f;
-}}
-
-ul {{
-    line-height:1.8;
+color:#c1121f;
 }}
 
 </style>
@@ -226,19 +164,23 @@ ul {{
 <div class="container">
 
 <div class="header">
-<h1>🚀 OpenShift Log Analysis – Performance Test Report</h1>
+
+<h1>🚀 OpenShift Log Analysis Performance Report</h1>
+
 <p>Generated using Azure AI Foundry</p>
+
 </div>
 
 <div class="report">
 
-{html_report_body}
+{html_body}
 
 </div>
 
 </div>
 
 </body>
+
 </html>
 """
 
