@@ -1,1 +1,66 @@
+2026-07-30T09:00:01.114Z INFO  payment-api-7f8c95f7b-jkq2d Application started successfully
 
+2026-07-30T09:01:12.421Z WARN  payment-api-7f8c95f7b-jkq2d CPU usage exceeded 85%
+
+2026-07-30T09:01:43.876Z WARN  payment-api-7f8c95f7b-jkq2d Memory usage exceeded 90%
+
+2026-07-30T09:02:11.323Z ERROR payment-api-7f8c95f7b-jkq2d Database connection timeout after 30000 ms
+
+2026-07-30T09:02:15.993Z ERROR payment-api-7f8c95f7b-jkq2d Transaction /payments failed with HTTP 500
+
+2026-07-30T09:02:21.514Z INFO  auth-service-6647d8df4c-lmn8p Authentication successful
+
+2026-07-30T09:03:17.243Z WARN  auth-service-6647d8df4c-lmn8p Pod restart count increased to 3
+
+2026-07-30T09:03:39.816Z ERROR auth-service-6647d8df4c-lmn8p Connection pool exhausted
+
+2026-07-30T09:04:22.510Z ERROR payment-api-7f8c95f7b-jkq2d Java heap space
+
+2026-07-30T09:04:25.225Z ERROR payment-api-7f8c95f7b-jkq2d OutOfMemoryError
+
+2026-07-30T09:04:30.180Z WARN  kubelet Container payment-api terminated due to OOMKilled
+
+2026-07-30T09:04:32.419Z INFO  kubelet Restarting pod payment-api-7f8c95f7b-jkq2d
+
+2026-07-30T09:04:35.522Z ERROR kubelet Pod entered CrashLoopBackOff state
+
+2026-07-30T09:05:11.732Z WARN  ingress-nginx Response time exceeded threshold: 2450 ms
+
+2026-07-30T09:05:26.417Z WARN  ingress-nginx Response time exceeded threshold: 3100 ms
+
+2026-07-30T09:05:43.927Z ERROR ingress-nginx Upstream request timeout
+
+2026-07-30T09:06:02.157Z WARN  prometheus Node memory pressure detected
+
+2026-07-30T09:06:11.444Z WARN  prometheus CPU throttling observed on payment-api container
+
+2026-07-30T09:06:47.224Z ERROR payment-api-7f8c95f7b-jkq2d Readiness probe failed
+
+2026-07-30T09:06:52.991Z ERROR payment-api-7f8c95f7b-jkq2d Liveness probe failed
+
+2026-07-30T09:07:21.604Z WARN  scheduler Insufficient memory available on worker-node-03
+
+2026-07-30T09:07:55.374Z ERROR auth-service-6647d8df4c-lmn8p TLS handshake timeout
+
+2026-07-30T09:08:12.087Z ERROR auth-service-6647d8df4c-lmn8p Connection refused to database service
+
+2026-07-30T09:08:39.670Z WARN  payment-api-7f8c95f7b-jkq2d Average response time reached 2800 ms
+
+2026-07-30T09:09:10.924Z INFO  HorizontalPodAutoscaler scaling payment-api from 3 replicas to 5 replicas
+
+2026-07-30T09:09:42.113Z INFO  payment-api-7f8c95f7b-jkq2d Pod became Ready
+
+2026-07-30T09:10:01.777Z INFO  Load test completed
+
+2026-07-30T09:10:02.145Z INFO  Test summary:
+Total Requests: 120000
+Successful Requests: 113400
+Failed Requests: 6600
+Average Response Time: 1850 ms
+P90 Response Time: 2800 ms
+P95 Response Time: 3400 ms
+Peak CPU Usage: 94%
+Peak Memory Usage: 96%
+Pod Restarts: 4
+OOMKilled Events: 1
+CrashLoopBackOff Events: 1
