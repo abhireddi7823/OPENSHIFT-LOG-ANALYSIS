@@ -1,96 +1,101 @@
-# 🚀 OpenShift Log Analysis – Performance Test Report
+# OpenShift Performance Log Analysis Report
 
-## 1. Document Control
+## 1. Executive Summary
+The application experienced significant performance issues, including high memory usage leading to OutOfMemory errors, connection pool exhaustion, and multiple unhandled exceptions. These issues indicate potential scalability and stability concerns that need to be addressed.
 
-| Version | Date       | Author                  | Notes                       |
-|---------|------------|-------------------------|-----------------------------|
-| 1.0     | 2026-07-30 | Principal Performance Engineer | Initial report creation     |
+## 2. Environment Information
+- Namespace: Not Available in Logs
+- Pod Name: order-service-6c9f8d7b45-p4x7k
+- Container Name: order-service
+- Node Name: Not Available in Logs
+- Deployment: Not Available in Logs
+- Application Name: orderservice
+- OpenShift Cluster: Not Available in Logs
+- JVM Version: Not Available in Logs
+- Spring Boot Version: Not Available in Logs
+- Database: Not Available in Logs
+- Timestamp Range: 2026-07-30 09:00:00 to 2026-07-30 09:02:10
 
-## 2. Executive Summary
+## 3. Performance Observations
 
-This report provides an analysis of the performance of the Order Service deployed on OpenShift. The analysis is based on the logs generated during the performance testing phase. Key metrics such as response times, resource utilization, and error rates are evaluated to identify potential bottlenecks and areas for improvement.
+| Finding | Evidence from Logs | Severity | Impact |
+|---------|--------------------|----------|--------|
+| High memory usage leading to OOMKilled | "OOMKilled: container order-service exceeded memory limit (2048Mi)" | Critical | Application crashes, leading to downtime. |
+| Connection pool exhausted | "Timeout waiting for connection from pool after 30000ms" | High | Requests to the database fail, impacting application functionality. |
+| Multiple unhandled exceptions | "Unhandled exception processing /api/payments/process -> 500 Internal Server Error" | High | Indicates application instability and potential data loss. |
+| Thread pool utilization approaching capacity | "Thread pool utilization at 90% (18/20 threads active)" | Medium | Potential for request queuing and increased response times. |
 
-## 3. Test Objectives & Scope
+## 4. API Performance Summary
 
-The primary objectives of the performance test were to:
-- Assess the response times of various API endpoints.
-- Evaluate resource utilization (CPU, memory).
-- Identify any error rates and their causes.
-- Provide recommendations for performance improvements.
+| API Endpoint | HTTP Method | Response Code | Execution Time | Observations |
+|--------------|-------------|---------------|----------------|--------------|
+| /api/orders/{id} | GET | 200 OK | 110ms | Consistent performance. |
+| /api/customers/{id} | GET | 200 OK | 154ms | Slightly higher response time. |
+| /api/payments/process | POST | 200 OK | 66ms | Performance impacted by connection issues. |
+| /api/shipping/quote | POST | 200 OK | 134ms | Performance impacted by connection issues. |
+| /api/inventory/check | POST | 200 OK | 106ms | Performance impacted by connection issues. |
 
-## 4. System Under Test
+## 5. Exceptions Summary
 
-The system under test is the Order Service, which handles customer orders, payments, and inventory checks. The service is deployed in a Kubernetes cluster managed by OpenShift.
+| Exception | Count (Approximate if visible) | Severity | Possible Cause |
+|-----------|---------------------------------|----------|----------------|
+| SQLTimeoutException | Multiple occurrences | High | Connection pool exhausted. |
+| SocketTimeoutException | Multiple occurrences | High | Payment processing failures due to external service timeouts. |
+| OutOfMemoryError | 1 | Critical | High memory usage leading to application crash. |
 
-## 5. Performance Scorecard
+## 6. Resource Related Findings
 
-| Metric                        | Value           | Status         |
-|-------------------------------|-----------------|-----------------|
-| Total Requests                | 1000            | -               |
-| Average Response Time (ms)    | 145             | Good            |
-| Maximum Response Time (ms)     | 251             | Needs Attention  |
-| Error Rate                    | 15%             | Needs Attention  |
-| Memory Utilization (%)        | 96%             | Critical        |
-| CPU Utilization (%)           | 85%             | Critical        |
+CPU: Not Available in Logs  
+Memory: Heap memory usage at 96% (1932MB/2048MB) - approaching OutOfMemory threshold.  
+Heap: Not Available in Logs  
+GC: GC pause detected: G1 Old Generation collection took 850ms.  
+Disk: Not Available in Logs  
+Thread Pool: Thread pool utilization at 95% (19/20 threads active) - approaching capacity.  
+Connection Pool: Connection is not available, total=20, active=20, idle=0, waiting=14.
 
-## 6. Critical Findings
-
-| Finding                          | Description                                                                 |
-|----------------------------------|-----------------------------------------------------------------------------|
-| High Error Rate                  | 15% of requests resulted in errors, primarily 500 Internal Server Errors. |
-| Memory Utilization               | Memory usage peaked at 96%, leading to OOMKilled events.                   |
-| Thread Pool Utilization          | Thread pool utilization reached 95%, indicating potential bottlenecks.     |
-| Connection Pool Exhaustion       | Multiple instances of connection pool exhaustion leading to SQLTimeoutExceptions. |
-
-## 7. Resource Utilization Analysis
-
-| Resource Type | Utilization (%) | Status         |
-|---------------|------------------|-----------------|
-| CPU           | 85%              | Critical        |
-| Memory        | 96%              | Critical        |
-| Disk I/O      | 40%              | Normal          |
+## 7. Database Analysis
+- Connection pool exhausted leading to SQLTimeoutExceptions.
+- Multiple failures to save orders due to connection issues.
 
 ## 8. Pod Health Analysis
+- Pod Restarts: Yes, due to OOMKilled events.
+- OOMKilled: Yes.
+- CrashLoopBackOff: Yes.
+- Container Restart: Yes.
+- Node Failure: Not Available in Logs.
 
-| Pod Name                       | Status         | Reason for Status           |
-|--------------------------------|----------------|-----------------------------|
-| order-service-6c9f8d7b45-p4x7k | OOMKilled      | Exceeded memory limit (2048Mi) |
-| order-service-6c9f8d7b45-p4x7k | Running        | Restarted successfully      |
+## 9. Timeline of Important Events
 
-## 9. Performance Metrics Analysis
-
-| Endpoint                     | Average Response Time (ms) | Error Rate (%) |
-|------------------------------|-----------------------------|-----------------|
-| /api/orders                  | 145                         | 10              |
-| /api/payments/process        | 200                         | 20              |
-| /api/inventory/check         | 130                         | 15              |
-| /api/shipping/quote         | 120                         | 5               |
+| Timestamp | Event | Severity |
+|-----------|-------|----------|
+| 2026-07-30 09:01:33 | OutOfMemoryError occurred | Critical |
+| 2026-07-30 09:01:36 | Pod order-service-6c9f8d7b45-p4x7k OOMKilled | Critical |
+| 2026-07-30 09:01:41 | Pod order-service-6c9f8d7b45-p4x7k restarted | Normal |
 
 ## 10. Root Cause Analysis
-
-1. **High Memory Usage**: The application is consuming excessive memory, leading to OOMKilled events. This is likely due to inefficient memory management in the application code.
-2. **Connection Pool Exhaustion**: The database connection pool is exhausted due to high concurrency and insufficient connections configured.
-3. **Thread Pool Saturation**: The thread pool is nearing capacity, which can lead to increased response times and request failures.
+Root cause cannot be conclusively determined from the provided logs. However, the combination of high memory usage, connection pool exhaustion, and unhandled exceptions suggests that the application is not adequately provisioned for the current load.
 
 ## 11. Recommendations
+1. Increase the memory limit for the order-service container to prevent OOMKilled events.
+2. Optimize the database connection pool settings to handle higher concurrency.
+3. Implement better error handling to manage unhandled exceptions gracefully.
+4. Monitor thread pool utilization and consider increasing the number of threads if necessary.
 
-| Recommendation                                      | Priority  |
-|-----------------------------------------------------|-----------|
-| Increase memory limits for the Order Service pod.   | High      |
-| Optimize database connection pool settings.          | High      |
-| Review and optimize application code for memory usage. | Medium    |
-| Implement caching strategies to reduce database load. | Medium    |
-| Monitor thread pool settings and adjust as necessary. | Medium    |
+## 12. Overall Assessment
+Application Stability: Poor  
+Confidence Level: Medium  
+Reason: The application is experiencing critical issues with memory management and connection handling, leading to crashes and unhandled exceptions.
 
-## 12. Acceptance Criteria Summary
-
-| Criteria                          | Status         |
-|-----------------------------------|-----------------|
-| Average response time < 200ms     | Met             |
-| Error rate < 5%                   | Not Met         |
-| Memory utilization < 80%           | Not Met         |
-| CPU utilization < 70%              | Not Met         |
-
-## 13. Final Verdict
-
-The performance test revealed several critical issues that need to be addressed to ensure the stability and efficiency of the Order Service. Immediate actions should be taken to optimize resource utilization and reduce error rates. Further testing should be conducted after implementing the recommended changes to validate improvements.
+## 13. Information Not Available
+- Average Response Time
+- P95 Response Time
+- TPS
+- Concurrent Users
+- CPU Utilization
+- Memory Utilization
+- Heap Usage %
+- GC Pause Time
+- Pod Restart Count
+- Prometheus Metrics
+- Grafana Metrics
+- OpenShift Monitoring Metrics

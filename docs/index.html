@@ -6,56 +6,68 @@
 
 <meta charset="utf-8">
 
-<title>OpenShift Log Analysis</title>
+<title>OpenShift Performance Log Analysis Report</title>
 
 <style>
 
 body {
-background:#f4f6f9;
-font-family:Segoe UI;
-padding:30px;
+    background:#f4f6f9;
+    font-family:Segoe UI, Arial, sans-serif;
+    margin:0;
+    padding:30px;
 }
 
 .container {
-max-width:1400px;
-margin:auto;
+    max-width:1400px;
+    margin:auto;
 }
 
 .header {
-background:#c1121f;
-color:white;
-padding:20px;
-border-radius:10px;
+    background:#c1121f;
+    color:white;
+    padding:25px;
+    border-radius:12px;
 }
 
 .report {
-background:white;
-padding:30px;
-margin-top:20px;
-border-radius:10px;
-box-shadow:0 2px 10px rgba(0,0,0,.1);
+    background:white;
+    padding:30px;
+    margin-top:20px;
+    border-radius:12px;
+    box-shadow:0 2px 10px rgba(0,0,0,.10);
 }
 
 table {
-border-collapse:collapse;
-width:100%;
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+    margin-bottom:20px;
 }
 
-table,th,td {
-border:1px solid #ddd;
+table, th, td {
+    border:1px solid #dcdcdc;
 }
 
 th {
-background:#c1121f;
-color:white;
+    background:#c1121f;
+    color:white;
 }
 
-th,td {
-padding:10px;
+th, td {
+    padding:10px;
+    text-align:left;
 }
 
-h1,h2,h3 {
-color:#c1121f;
+h1 {
+    margin-top:0;
+}
+
+h1, h2, h3 {
+    color:#c1121f;
+}
+
+ul {
+    line-height:1.8;
 }
 
 </style>
@@ -68,260 +80,226 @@ color:#c1121f;
 
 <div class="header">
 
-<h1>🚀 OpenShift Log Analysis Performance Report</h1>
+<h1>🚀 OpenShift Performance Log Analysis Report</h1>
 
-<p>Generated using Azure AI Foundry</p>
+<p>
+Generated using Azure AI Foundry
+</p>
 
 </div>
 
 <div class="report">
 
-<h1>🚀 OpenShift Log Analysis – Performance Test Report</h1>
-<h2>1. Document Control</h2>
-<table>
-<thead>
-<tr>
-<th>Version</th>
-<th>Date</th>
-<th>Author</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1.0</td>
-<td>2026-07-30</td>
-<td>Principal Performance Engineer</td>
-<td>Initial report creation</td>
-</tr>
-</tbody>
-</table>
-<h2>2. Executive Summary</h2>
-<p>This report provides an analysis of the performance of the Order Service deployed on OpenShift. The analysis is based on the logs generated during the performance testing phase. Key metrics such as response times, resource utilization, and error rates are evaluated to identify potential bottlenecks and areas for improvement.</p>
-<h2>3. Test Objectives &amp; Scope</h2>
-<p>The primary objectives of the performance test were to:
-- Assess the response times of various API endpoints.
-- Evaluate resource utilization (CPU, memory).
-- Identify any error rates and their causes.
-- Provide recommendations for performance improvements.</p>
-<h2>4. System Under Test</h2>
-<p>The system under test is the Order Service, which handles customer orders, payments, and inventory checks. The service is deployed in a Kubernetes cluster managed by OpenShift.</p>
-<h2>5. Performance Scorecard</h2>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Value</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Total Requests</td>
-<td>1000</td>
-<td>-</td>
-</tr>
-<tr>
-<td>Average Response Time (ms)</td>
-<td>145</td>
-<td>Good</td>
-</tr>
-<tr>
-<td>Maximum Response Time (ms)</td>
-<td>251</td>
-<td>Needs Attention</td>
-</tr>
-<tr>
-<td>Error Rate</td>
-<td>15%</td>
-<td>Needs Attention</td>
-</tr>
-<tr>
-<td>Memory Utilization (%)</td>
-<td>96%</td>
-<td>Critical</td>
-</tr>
-<tr>
-<td>CPU Utilization (%)</td>
-<td>85%</td>
-<td>Critical</td>
-</tr>
-</tbody>
-</table>
-<h2>6. Critical Findings</h2>
+<h1>OpenShift Performance Log Analysis Report</h1>
+<h2>1. Executive Summary</h2>
+<p>The application experienced significant performance issues, including high memory usage leading to OutOfMemory errors, connection pool exhaustion, and multiple unhandled exceptions. These issues indicate potential scalability and stability concerns that need to be addressed.</p>
+<h2>2. Environment Information</h2>
+<ul>
+<li>Namespace: Not Available in Logs</li>
+<li>Pod Name: order-service-6c9f8d7b45-p4x7k</li>
+<li>Container Name: order-service</li>
+<li>Node Name: Not Available in Logs</li>
+<li>Deployment: Not Available in Logs</li>
+<li>Application Name: orderservice</li>
+<li>OpenShift Cluster: Not Available in Logs</li>
+<li>JVM Version: Not Available in Logs</li>
+<li>Spring Boot Version: Not Available in Logs</li>
+<li>Database: Not Available in Logs</li>
+<li>Timestamp Range: 2026-07-30 09:00:00 to 2026-07-30 09:02:10</li>
+</ul>
+<h2>3. Performance Observations</h2>
 <table>
 <thead>
 <tr>
 <th>Finding</th>
-<th>Description</th>
+<th>Evidence from Logs</th>
+<th>Severity</th>
+<th>Impact</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>High Error Rate</td>
-<td>15% of requests resulted in errors, primarily 500 Internal Server Errors.</td>
+<td>High memory usage leading to OOMKilled</td>
+<td>"OOMKilled: container order-service exceeded memory limit (2048Mi)"</td>
+<td>Critical</td>
+<td>Application crashes, leading to downtime.</td>
 </tr>
 <tr>
-<td>Memory Utilization</td>
-<td>Memory usage peaked at 96%, leading to OOMKilled events.</td>
+<td>Connection pool exhausted</td>
+<td>"Timeout waiting for connection from pool after 30000ms"</td>
+<td>High</td>
+<td>Requests to the database fail, impacting application functionality.</td>
 </tr>
 <tr>
-<td>Thread Pool Utilization</td>
-<td>Thread pool utilization reached 95%, indicating potential bottlenecks.</td>
+<td>Multiple unhandled exceptions</td>
+<td>"Unhandled exception processing /api/payments/process -&gt; 500 Internal Server Error"</td>
+<td>High</td>
+<td>Indicates application instability and potential data loss.</td>
 </tr>
 <tr>
-<td>Connection Pool Exhaustion</td>
-<td>Multiple instances of connection pool exhaustion leading to SQLTimeoutExceptions.</td>
+<td>Thread pool utilization approaching capacity</td>
+<td>"Thread pool utilization at 90% (18/20 threads active)"</td>
+<td>Medium</td>
+<td>Potential for request queuing and increased response times.</td>
 </tr>
 </tbody>
 </table>
-<h2>7. Resource Utilization Analysis</h2>
+<h2>4. API Performance Summary</h2>
 <table>
 <thead>
 <tr>
-<th>Resource Type</th>
-<th>Utilization (%)</th>
-<th>Status</th>
+<th>API Endpoint</th>
+<th>HTTP Method</th>
+<th>Response Code</th>
+<th>Execution Time</th>
+<th>Observations</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>CPU</td>
-<td>85%</td>
+<td>/api/orders/{id}</td>
+<td>GET</td>
+<td>200 OK</td>
+<td>110ms</td>
+<td>Consistent performance.</td>
+</tr>
+<tr>
+<td>/api/customers/{id}</td>
+<td>GET</td>
+<td>200 OK</td>
+<td>154ms</td>
+<td>Slightly higher response time.</td>
+</tr>
+<tr>
+<td>/api/payments/process</td>
+<td>POST</td>
+<td>200 OK</td>
+<td>66ms</td>
+<td>Performance impacted by connection issues.</td>
+</tr>
+<tr>
+<td>/api/shipping/quote</td>
+<td>POST</td>
+<td>200 OK</td>
+<td>134ms</td>
+<td>Performance impacted by connection issues.</td>
+</tr>
+<tr>
+<td>/api/inventory/check</td>
+<td>POST</td>
+<td>200 OK</td>
+<td>106ms</td>
+<td>Performance impacted by connection issues.</td>
+</tr>
+</tbody>
+</table>
+<h2>5. Exceptions Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Exception</th>
+<th>Count (Approximate if visible)</th>
+<th>Severity</th>
+<th>Possible Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SQLTimeoutException</td>
+<td>Multiple occurrences</td>
+<td>High</td>
+<td>Connection pool exhausted.</td>
+</tr>
+<tr>
+<td>SocketTimeoutException</td>
+<td>Multiple occurrences</td>
+<td>High</td>
+<td>Payment processing failures due to external service timeouts.</td>
+</tr>
+<tr>
+<td>OutOfMemoryError</td>
+<td>1</td>
+<td>Critical</td>
+<td>High memory usage leading to application crash.</td>
+</tr>
+</tbody>
+</table>
+<h2>6. Resource Related Findings</h2>
+<p>CPU: Not Available in Logs<br />
+Memory: Heap memory usage at 96% (1932MB/2048MB) - approaching OutOfMemory threshold.<br />
+Heap: Not Available in Logs<br />
+GC: GC pause detected: G1 Old Generation collection took 850ms.<br />
+Disk: Not Available in Logs<br />
+Thread Pool: Thread pool utilization at 95% (19/20 threads active) - approaching capacity.<br />
+Connection Pool: Connection is not available, total=20, active=20, idle=0, waiting=14.</p>
+<h2>7. Database Analysis</h2>
+<ul>
+<li>Connection pool exhausted leading to SQLTimeoutExceptions.</li>
+<li>Multiple failures to save orders due to connection issues.</li>
+</ul>
+<h2>8. Pod Health Analysis</h2>
+<ul>
+<li>Pod Restarts: Yes, due to OOMKilled events.</li>
+<li>OOMKilled: Yes.</li>
+<li>CrashLoopBackOff: Yes.</li>
+<li>Container Restart: Yes.</li>
+<li>Node Failure: Not Available in Logs.</li>
+</ul>
+<h2>9. Timeline of Important Events</h2>
+<table>
+<thead>
+<tr>
+<th>Timestamp</th>
+<th>Event</th>
+<th>Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-07-30 09:01:33</td>
+<td>OutOfMemoryError occurred</td>
 <td>Critical</td>
 </tr>
 <tr>
-<td>Memory</td>
-<td>96%</td>
+<td>2026-07-30 09:01:36</td>
+<td>Pod order-service-6c9f8d7b45-p4x7k OOMKilled</td>
 <td>Critical</td>
 </tr>
 <tr>
-<td>Disk I/O</td>
-<td>40%</td>
+<td>2026-07-30 09:01:41</td>
+<td>Pod order-service-6c9f8d7b45-p4x7k restarted</td>
 <td>Normal</td>
 </tr>
 </tbody>
 </table>
-<h2>8. Pod Health Analysis</h2>
-<table>
-<thead>
-<tr>
-<th>Pod Name</th>
-<th>Status</th>
-<th>Reason for Status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>order-service-6c9f8d7b45-p4x7k</td>
-<td>OOMKilled</td>
-<td>Exceeded memory limit (2048Mi)</td>
-</tr>
-<tr>
-<td>order-service-6c9f8d7b45-p4x7k</td>
-<td>Running</td>
-<td>Restarted successfully</td>
-</tr>
-</tbody>
-</table>
-<h2>9. Performance Metrics Analysis</h2>
-<table>
-<thead>
-<tr>
-<th>Endpoint</th>
-<th>Average Response Time (ms)</th>
-<th>Error Rate (%)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>/api/orders</td>
-<td>145</td>
-<td>10</td>
-</tr>
-<tr>
-<td>/api/payments/process</td>
-<td>200</td>
-<td>20</td>
-</tr>
-<tr>
-<td>/api/inventory/check</td>
-<td>130</td>
-<td>15</td>
-</tr>
-<tr>
-<td>/api/shipping/quote</td>
-<td>120</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
 <h2>10. Root Cause Analysis</h2>
-<ol>
-<li><strong>High Memory Usage</strong>: The application is consuming excessive memory, leading to OOMKilled events. This is likely due to inefficient memory management in the application code.</li>
-<li><strong>Connection Pool Exhaustion</strong>: The database connection pool is exhausted due to high concurrency and insufficient connections configured.</li>
-<li><strong>Thread Pool Saturation</strong>: The thread pool is nearing capacity, which can lead to increased response times and request failures.</li>
-</ol>
+<p>Root cause cannot be conclusively determined from the provided logs. However, the combination of high memory usage, connection pool exhaustion, and unhandled exceptions suggests that the application is not adequately provisioned for the current load.</p>
 <h2>11. Recommendations</h2>
-<table>
-<thead>
-<tr>
-<th>Recommendation</th>
-<th>Priority</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Increase memory limits for the Order Service pod.</td>
-<td>High</td>
-</tr>
-<tr>
-<td>Optimize database connection pool settings.</td>
-<td>High</td>
-</tr>
-<tr>
-<td>Review and optimize application code for memory usage.</td>
-<td>Medium</td>
-</tr>
-<tr>
-<td>Implement caching strategies to reduce database load.</td>
-<td>Medium</td>
-</tr>
-<tr>
-<td>Monitor thread pool settings and adjust as necessary.</td>
-<td>Medium</td>
-</tr>
-</tbody>
-</table>
-<h2>12. Acceptance Criteria Summary</h2>
-<table>
-<thead>
-<tr>
-<th>Criteria</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Average response time &lt; 200ms</td>
-<td>Met</td>
-</tr>
-<tr>
-<td>Error rate &lt; 5%</td>
-<td>Not Met</td>
-</tr>
-<tr>
-<td>Memory utilization &lt; 80%</td>
-<td>Not Met</td>
-</tr>
-<tr>
-<td>CPU utilization &lt; 70%</td>
-<td>Not Met</td>
-</tr>
-</tbody>
-</table>
-<h2>13. Final Verdict</h2>
-<p>The performance test revealed several critical issues that need to be addressed to ensure the stability and efficiency of the Order Service. Immediate actions should be taken to optimize resource utilization and reduce error rates. Further testing should be conducted after implementing the recommended changes to validate improvements.</p>
+<ol>
+<li>Increase the memory limit for the order-service container to prevent OOMKilled events.</li>
+<li>Optimize the database connection pool settings to handle higher concurrency.</li>
+<li>Implement better error handling to manage unhandled exceptions gracefully.</li>
+<li>Monitor thread pool utilization and consider increasing the number of threads if necessary.</li>
+</ol>
+<h2>12. Overall Assessment</h2>
+<p>Application Stability: Poor<br />
+Confidence Level: Medium<br />
+Reason: The application is experiencing critical issues with memory management and connection handling, leading to crashes and unhandled exceptions.</p>
+<h2>13. Information Not Available</h2>
+<ul>
+<li>Average Response Time</li>
+<li>P95 Response Time</li>
+<li>TPS</li>
+<li>Concurrent Users</li>
+<li>CPU Utilization</li>
+<li>Memory Utilization</li>
+<li>Heap Usage %</li>
+<li>GC Pause Time</li>
+<li>Pod Restart Count</li>
+<li>Prometheus Metrics</li>
+<li>Grafana Metrics</li>
+<li>OpenShift Monitoring Metrics</li>
+</ul>
 
 </div>
 
