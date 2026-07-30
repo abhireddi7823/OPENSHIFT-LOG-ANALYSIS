@@ -3,75 +3,44 @@ import json
 import requests
 from pathlib import Path
 
-# ========================
-# Azure AI Foundry Config
-# ========================
-
 API_KEY = os.environ["AZURE_FOUNDRY_API_KEY"]
 ENDPOINT = os.environ["AZURE_FOUNDRY_ENDPOINT"]
 DEPLOYMENT = os.environ["AZURE_FOUNDRY_DEPLOYMENT"]
 
-OUTPUT_DIR = Path("analysis_output")
-OUTPUT_DIR.mkdir(exist_ok=True)
+DOCS = Path("docs")
+DOCS.mkdir(exist_ok=True)
 
-LOG_FILE = "logs/openshift.log"
-
-# ========================
-# Read Log File
-# ========================
-
-with open(LOG_FILE, "r", encoding="utf-8", errors="ignore") as f:
+with open(
+    "logs/openshift.log",
+    "r",
+    encoding="utf-8",
+    errors="ignore"
+) as f:
     log_content = f.read()
 
-# Truncate huge logs
-log_content = log_content[:100000]
-
-# ========================
-# Prompt
-# ========================
-
 SYSTEM_PROMPT = """
-You are a Senior OpenShift Platform and Performance Engineer.
+You are a Senior OpenShift Performance Engineer.
 
-Analyze the OpenShift logs and provide:
+Analyse the logs and provide:
 
-## Executive Summary
+# Executive Summary
 
-## Critical Errors
+# Performance Score
+Provide score out of 100.
 
-## Pod Issues
-- CrashLoopBackOff
-- OOMKilled
-- RestartCount
+# Critical Findings
 
-## Resource Utilization Findings
-- Memory Issues
-- CPU Issues
-- Storage Issues
+# Resource Findings
 
-## Network Issues
+# Root Cause Analysis
 
-## Root Cause Analysis
+# Recommendations
 
-## Recommendations
+# Severity
+Critical / High / Medium / Low
 
-Use markdown formatting.
+Return markdown.
 """
-
-USER_PROMPT = f"""
-Analyze the following OpenShift logs.
-
-{log_content}
-"""
-
-# ========================
-# Azure AI Foundry Call
-# ========================
-
-headers = {
-    "api-key": API_KEY,
-    "Content-Type": "application/json"
-}
 
 payload = {
     "model": DEPLOYMENT,
@@ -82,11 +51,16 @@ payload = {
         },
         {
             "role": "user",
-            "content": USER_PROMPT
+            "content": log_content[:100000]
         }
     ],
     "temperature": 0.2,
     "max_tokens": 2500
+}
+
+headers = {
+    "api-key": API_KEY,
+    "Content-Type": "application/json"
 }
 
 response = requests.post(
@@ -100,28 +74,80 @@ response.raise_for_status()
 
 analysis = response.json()["choices"][0]["message"]["content"]
 
-# ========================
-# Save Outputs
-# ========================
-
-with open(
-    "analysis_output/summary.md",
-    "w",
+(Path("docs") / "summary.md").write_text(
+    analysis,
     encoding="utf-8"
-) as f:
-    f.write(analysis)
+)
 
-with open(
-    "analysis_output/summary.json",
-    "w",
-    encoding="utf-8"
-) as f:
-    json.dump(
+(Path("docs") / "analysis.json").write_text(
+    json.dumps(
         {
             "analysis": analysis
         },
-        f,
         indent=2
-    )
+    ),
+    encoding="utf-8"
+)
+
+html = f"""
+<!DOCTYPE html>
+<html>
+<head>
+<title>OpenShift Log Analysis</title>
+
+<style>
+
+body {{
+font-family: Arial, sans-serif;
+background:#f4f6f9;
+padding:40px;
+margin:0;
+}}
+
+.container {{
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.2);
+}}
+
+h1 {{
+color:#c1121f;
+}}
+
+pre {{
+white-space: pre-wrap;
+word-wrap: break-word;
+font-size:14px;
+line-height:1.6;
+}}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>🚀 OpenShift AI Log Analysis</h1>
+
+<p>
+Generated using Azure AI Foundry
+</p>
+
+<pre>
+{analysis}
+</pre>
+
+</div>
+
+</body>
+</html>
+"""
+
+(Path("docs") / "index.html").write_text(
+    html,
+    encoding="utf-8"
+)
 
 print("Analysis completed successfully.")
