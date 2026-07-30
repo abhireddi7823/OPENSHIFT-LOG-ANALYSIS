@@ -1,1 +1,39 @@
+name: OpenShift AI Analysis
 
+on:
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: |
+          pip install requests
+
+      - name: Analyse OpenShift Logs
+        env:
+          AZURE_FOUNDRY_API_KEY: ${{ secrets.AZURE_FOUNDRY_API_KEY }}
+          AZURE_FOUNDRY_ENDPOINT: ${{ secrets.AZURE_FOUNDRY_ENDPOINT }}
+          AZURE_FOUNDRY_DEPLOYMENT: ${{ secrets.AZURE_FOUNDRY_DEPLOYMENT }}
+        run: |
+          python scripts/analyse_openshift_logs.py
+
+      - name: Publish Analysis to Job Summary
+        run: |
+          cat analysis_output/summary.md >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload Analysis Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenShift-AI-Analysis
+          path: analysis_output/
