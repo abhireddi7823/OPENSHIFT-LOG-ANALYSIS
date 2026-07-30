@@ -33,15 +33,6 @@ jobs:
         run: |
           cat docs/summary.md >> $GITHUB_STEP_SUMMARY
 
-      - name: Add Dashboard Link
-        run: |
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "---" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## 🌐 OpenShift Analysis Dashboard" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "[Open Dashboard](https://abhireddi7823.github.io/OPENSHIFT-LOG-ANALYSIS/)" >> $GITHUB_STEP_SUMMARY
-
       - name: Upload Analysis Artifact
         uses: actions/upload-artifact@v4
         with:
