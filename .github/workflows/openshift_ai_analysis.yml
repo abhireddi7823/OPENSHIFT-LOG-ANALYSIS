@@ -3,11 +3,15 @@ name: OpenShift AI Analysis
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   analyze:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -28,12 +32,16 @@ jobs:
         run: |
           python scripts/analyse_openshift_logs.py
 
-      - name: Publish Analysis to Job Summary
+      - name: Publish Summary
         run: |
-          cat analysis_output/summary.md >> $GITHUB_STEP_SUMMARY
+          cat docs/summary.md >> $GITHUB_STEP_SUMMARY
 
-      - name: Upload Analysis Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: OpenShift-AI-Analysis
-          path: analysis_output/
+      - name: Commit Analysis
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          git add docs/*
+          git commit -m "Update OpenShift analysis" || echo "No changes"
+
+          git push
