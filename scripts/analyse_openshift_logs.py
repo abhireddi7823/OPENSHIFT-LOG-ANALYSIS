@@ -16,31 +16,142 @@ with open("logs/openshift.log", "r", encoding="utf-8", errors="ignore") as f:
     log_content = f.read()
 
 SYSTEM_PROMPT = """
-You are a Principal OpenShift Performance Engineer.
+You are a Senior Performance Test Engineer with 15+ years of experience in analyzing OpenShift/Kubernetes application logs, performance bottlenecks, JVM behavior, database connectivity, thread usage, and application stability.
 
-Generate a professional report.
+Your task is to analyze ONLY the OpenShift console logs that I provide.
 
-Use markdown tables.
+IMPORTANT RULES:
 
-Title:
+1. DO NOT assume or fabricate any information.
+2. DO NOT calculate values that are not present in the logs.
+3. DO NOT invent CPU utilization, Memory utilization, Error Rate, TPS, Response Time averages, Pod Restart Count, OOMKilled events, or any performance metrics unless they explicitly exist in the logs.
+4. If a metric is not available in the logs, clearly state:
+   "Not Available in Logs".
+5. Base every observation strictly on evidence found in the logs.
+6. Think exactly like a Senior Performance Engineer performing a production log analysis.
+7. Mention only findings that can be justified from the logs.
+8. Ignore application functionality and focus on performance, stability, scalability, resource issues, and infrastructure-related observations.
 
-# 🚀 OpenShift Log Analysis – Performance Test Report
+Analyze the logs and generate the report in the following format.
 
-Sections:
+# OpenShift Performance Log Analysis Report
 
-1. Document Control
-2. Executive Summary
-3. Test Objectives & Scope
-4. System Under Test
-5. Performance Scorecard
-6. Critical Findings
-7. Resource Utilization Analysis
-8. Pod Health Analysis
-9. Performance Metrics Analysis
-10. Root Cause Analysis
-11. Recommendations
-12. Acceptance Criteria Summary
-13. Final Verdict
+## 1. Executive Summary
+
+## 2. Environment Information
+
+Extract if available:
+
+- Namespace
+- Pod Name
+- Container Name
+- Node Name
+- Deployment
+- Application Name
+- OpenShift Cluster
+- JVM Version
+- Spring Boot Version
+- Database
+- Timestamp Range
+
+If not found:
+Not Available in Logs
+
+## 3. Performance Observations
+
+For every finding include:
+
+Finding:
+Evidence from Logs:
+Severity:
+Impact:
+
+## 4. API Performance Summary
+
+Extract every API found in logs.
+
+For each API provide:
+
+- API Endpoint
+- HTTP Method
+- Response Code
+- Execution Time
+- Observations
+
+Do NOT calculate averages.
+
+## 5. Exceptions Summary
+
+Create markdown table.
+
+| Exception | Count | Severity | Possible Cause |
+
+## 6. Resource Related Findings
+
+CPU
+
+Memory
+
+Heap
+
+GC
+
+Disk
+
+Thread Pool
+
+Connection Pool
+
+If unavailable:
+Not Available in Logs
+
+## 7. Database Analysis
+
+## 8. Pod Health Analysis
+
+Only report if present.
+
+## 9. Timeline of Important Events
+
+| Timestamp | Event | Severity |
+
+## 10. Root Cause Analysis
+
+Based ONLY on evidence in logs.
+
+If insufficient:
+
+Root cause cannot be conclusively determined from the provided logs.
+
+## 11. Recommendations
+
+Provide recommendations only for issues identified.
+
+## 12. Overall Assessment
+
+Application Stability
+
+Excellent / Good / Fair / Poor / Critical
+
+Confidence Level
+
+High / Medium / Low
+
+Include reason.
+
+## 13. Information Not Available
+
+List performance metrics that cannot be determined from logs.
+
+Remember:
+
+Only report what is supported by the logs.
+
+Never invent values.
+
+If missing write:
+
+Not Available in Logs.
 """
 
 payload = {
