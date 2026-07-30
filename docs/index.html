@@ -1,9 +1,332 @@
+
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>OpenShift Analysis</title>
+
+<meta charset="utf-8">
+
+<title>OpenShift Log Analysis</title>
+
+<style>
+
+body {
+background:#f4f6f9;
+font-family:Segoe UI;
+padding:30px;
+}
+
+.container {
+max-width:1400px;
+margin:auto;
+}
+
+.header {
+background:#c1121f;
+color:white;
+padding:20px;
+border-radius:10px;
+}
+
+.report {
+background:white;
+padding:30px;
+margin-top:20px;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+table {
+border-collapse:collapse;
+width:100%;
+}
+
+table,th,td {
+border:1px solid #ddd;
+}
+
+th {
+background:#c1121f;
+color:white;
+}
+
+th,td {
+padding:10px;
+}
+
+h1,h2,h3 {
+color:#c1121f;
+}
+
+</style>
+
 </head>
+
 <body>
-OpenShift Dashboard
+
+<div class="container">
+
+<div class="header">
+
+<h1>🚀 OpenShift Log Analysis Performance Report</h1>
+
+<p>Generated using Azure AI Foundry</p>
+
+</div>
+
+<div class="report">
+
+<h1>🚀 OpenShift Log Analysis – Performance Test Report</h1>
+<h2>1. Document Control</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Author</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>2026-07-30</td>
+<td>Principal Performance Engineer</td>
+<td>Initial report creation</td>
+</tr>
+</tbody>
+</table>
+<h2>2. Executive Summary</h2>
+<p>This report provides an analysis of the performance of the Order Service deployed on OpenShift. The analysis is based on the logs generated during the performance testing phase. Key metrics such as response times, resource utilization, and error rates are evaluated to identify potential bottlenecks and areas for improvement.</p>
+<h2>3. Test Objectives &amp; Scope</h2>
+<p>The primary objectives of the performance test were to:
+- Assess the response times of various API endpoints.
+- Evaluate resource utilization (CPU, memory).
+- Identify any error rates and their causes.
+- Provide recommendations for performance improvements.</p>
+<h2>4. System Under Test</h2>
+<p>The system under test is the Order Service, which handles customer orders, payments, and inventory checks. The service is deployed in a Kubernetes cluster managed by OpenShift.</p>
+<h2>5. Performance Scorecard</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total Requests</td>
+<td>1000</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Average Response Time (ms)</td>
+<td>145</td>
+<td>Good</td>
+</tr>
+<tr>
+<td>Maximum Response Time (ms)</td>
+<td>251</td>
+<td>Needs Attention</td>
+</tr>
+<tr>
+<td>Error Rate</td>
+<td>15%</td>
+<td>Needs Attention</td>
+</tr>
+<tr>
+<td>Memory Utilization (%)</td>
+<td>96%</td>
+<td>Critical</td>
+</tr>
+<tr>
+<td>CPU Utilization (%)</td>
+<td>85%</td>
+<td>Critical</td>
+</tr>
+</tbody>
+</table>
+<h2>6. Critical Findings</h2>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>High Error Rate</td>
+<td>15% of requests resulted in errors, primarily 500 Internal Server Errors.</td>
+</tr>
+<tr>
+<td>Memory Utilization</td>
+<td>Memory usage peaked at 96%, leading to OOMKilled events.</td>
+</tr>
+<tr>
+<td>Thread Pool Utilization</td>
+<td>Thread pool utilization reached 95%, indicating potential bottlenecks.</td>
+</tr>
+<tr>
+<td>Connection Pool Exhaustion</td>
+<td>Multiple instances of connection pool exhaustion leading to SQLTimeoutExceptions.</td>
+</tr>
+</tbody>
+</table>
+<h2>7. Resource Utilization Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Resource Type</th>
+<th>Utilization (%)</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>85%</td>
+<td>Critical</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>96%</td>
+<td>Critical</td>
+</tr>
+<tr>
+<td>Disk I/O</td>
+<td>40%</td>
+<td>Normal</td>
+</tr>
+</tbody>
+</table>
+<h2>8. Pod Health Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Pod Name</th>
+<th>Status</th>
+<th>Reason for Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>order-service-6c9f8d7b45-p4x7k</td>
+<td>OOMKilled</td>
+<td>Exceeded memory limit (2048Mi)</td>
+</tr>
+<tr>
+<td>order-service-6c9f8d7b45-p4x7k</td>
+<td>Running</td>
+<td>Restarted successfully</td>
+</tr>
+</tbody>
+</table>
+<h2>9. Performance Metrics Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Endpoint</th>
+<th>Average Response Time (ms)</th>
+<th>Error Rate (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/api/orders</td>
+<td>145</td>
+<td>10</td>
+</tr>
+<tr>
+<td>/api/payments/process</td>
+<td>200</td>
+<td>20</td>
+</tr>
+<tr>
+<td>/api/inventory/check</td>
+<td>130</td>
+<td>15</td>
+</tr>
+<tr>
+<td>/api/shipping/quote</td>
+<td>120</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<h2>10. Root Cause Analysis</h2>
+<ol>
+<li><strong>High Memory Usage</strong>: The application is consuming excessive memory, leading to OOMKilled events. This is likely due to inefficient memory management in the application code.</li>
+<li><strong>Connection Pool Exhaustion</strong>: The database connection pool is exhausted due to high concurrency and insufficient connections configured.</li>
+<li><strong>Thread Pool Saturation</strong>: The thread pool is nearing capacity, which can lead to increased response times and request failures.</li>
+</ol>
+<h2>11. Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Recommendation</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Increase memory limits for the Order Service pod.</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Optimize database connection pool settings.</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Review and optimize application code for memory usage.</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Implement caching strategies to reduce database load.</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Monitor thread pool settings and adjust as necessary.</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table>
+<h2>12. Acceptance Criteria Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Criteria</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Average response time &lt; 200ms</td>
+<td>Met</td>
+</tr>
+<tr>
+<td>Error rate &lt; 5%</td>
+<td>Not Met</td>
+</tr>
+<tr>
+<td>Memory utilization &lt; 80%</td>
+<td>Not Met</td>
+</tr>
+<tr>
+<td>CPU utilization &lt; 70%</td>
+<td>Not Met</td>
+</tr>
+</tbody>
+</table>
+<h2>13. Final Verdict</h2>
+<p>The performance test revealed several critical issues that need to be addressed to ensure the stability and efficiency of the Order Service. Immediate actions should be taken to optimize resource utilization and reduce error rates. Further testing should be conducted after implementing the recommended changes to validate improvements.</p>
+
+</div>
+
+</div>
+
 </body>
+
 </html>
