@@ -3,9 +3,6 @@ name: OpenShift AI Analysis
 on:
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
   analyze:
     runs-on: ubuntu-latest
@@ -41,23 +38,12 @@ jobs:
 
       - name: Verify Generated Files
         run: |
-          echo "Contents of docs folder"
+          echo "Generated Files:"
           ls -lrt docs/
 
-      - name: Publish Analysis to GitHub Summary
+      - name: Publish Analysis To Summary
         run: |
           cat docs/summary.md >> $GITHUB_STEP_SUMMARY
-
-      - name: Commit Updated Dashboard
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-
-          git add docs/
-
-          git commit -m "Update OpenShift AI Dashboard" || echo "No changes to commit"
-
-          git push origin main
 
       - name: Upload Analysis Artifact
         uses: actions/upload-artifact@v4
