@@ -129,13 +129,13 @@ pre{
 
 <h1>OpenShift Performance Log Analysis Report</h1>
 <h2>1. Executive Summary</h2>
-<p>The performance analysis of the Order Service application running on OpenShift revealed several critical issues related to resource utilization, API performance, and error handling. The application experienced high memory usage, connection pool exhaustion, and multiple unhandled exceptions, leading to degraded performance and service interruptions.</p>
+<p>This report provides an analysis of the performance logs from the OpenShift environment, focusing on key observations, API performance, exceptions, resource utilization, database interactions, pod health, and significant events.</p>
 <h2>2. Environment Information</h2>
 <ul>
-<li><strong>Application Name</strong>: Order Service</li>
-<li><strong>Deployment Platform</strong>: OpenShift</li>
-<li><strong>Memory Limit</strong>: 2048Mi</li>
-<li><strong>JVM Version</strong>: Not Available in Logs</li>
+<li><strong>Date of Analysis:</strong> July 31, 2026</li>
+<li><strong>OpenShift Version:</strong> Not Available in Logs</li>
+<li><strong>Kubernetes Version:</strong> Not Available in Logs</li>
+<li><strong>Cluster Name:</strong> Not Available in Logs</li>
 </ul>
 <h2>3. Performance Observations</h2>
 <table>
@@ -149,34 +149,34 @@ pre{
 </thead>
 <tbody>
 <tr>
-<td>High memory usage approaching OutOfMemory threshold</td>
-<td>"Heap memory usage at 94% (1884MB/2048MB)"</td>
+<td>Unauthorized access due to token expiration</td>
+<td><code>{"level":"error","message":"Unauthorized: token expired"}</code></td>
 <td>High</td>
-<td>Risk of application crashes due to OOM errors</td>
+<td>Potential service disruption for users relying on authentication.</td>
 </tr>
 <tr>
-<td>Connection pool exhausted</td>
-<td>"Timeout waiting for connection from pool after 30000ms"</td>
-<td>High</td>
-<td>Unable to process new requests, leading to service degradation</td>
-</tr>
-<tr>
-<td>Multiple unhandled exceptions</td>
-<td>"Unhandled exception processing /api/payments/process -&gt; 500 Internal Server Error"</td>
-<td>High</td>
-<td>Service interruptions and user impact due to failed requests</td>
-</tr>
-<tr>
-<td>Thread pool utilization at high levels</td>
-<td>"Thread pool utilization at 95% (19/20 threads active)"</td>
+<td>Failed to mount volume due to timeout</td>
+<td><code>{"level":"error","message":"Failed to mount volume: timed out waiting for the condition"}</code></td>
 <td>Medium</td>
-<td>Potential for request queuing and delays in processing</td>
+<td>Could lead to application downtime if critical volumes are not mounted.</td>
 </tr>
 <tr>
-<td>GC pauses detected</td>
-<td>"GC pause detected: G1 Old Generation collection took 850ms"</td>
+<td>OOMKilled: container exceeded memory limit</td>
+<td><code>{"level":"error","message":"OOMKilled: container exceeded memory limit"}</code></td>
+<td>High</td>
+<td>Application may crash, leading to service unavailability.</td>
+</tr>
+<tr>
+<td>Slow request detected</td>
+<td><code>{"level":"warning","message":"Slow request detected: 3258ms"}</code></td>
 <td>Medium</td>
-<td>Increased latency in request processing</td>
+<td>Indicates potential performance bottlenecks affecting user experience.</td>
+</tr>
+<tr>
+<td>Node pressure detected: DiskPressure</td>
+<td><code>{"level":"warning","message":"Node pressure detected: DiskPressure"}</code></td>
+<td>High</td>
+<td>Could lead to degraded performance or application failures if not addressed.</td>
 </tr>
 </tbody>
 </table>
@@ -193,39 +193,25 @@ pre{
 </thead>
 <tbody>
 <tr>
-<td>/api/orders/{id}</td>
+<td>/api/v1/resource</td>
 <td>GET</td>
-<td>200 OK</td>
-<td>110ms</td>
-<td>Consistent performance</td>
+<td>200</td>
+<td>1799ms</td>
+<td>Normal response time.</td>
 </tr>
 <tr>
-<td>/api/payments/process</td>
+<td>/api/v1/resource</td>
 <td>POST</td>
-<td>500 Internal Server Error</td>
-<td>132ms</td>
-<td>Frequent failures due to connection issues</td>
+<td>500</td>
+<td>3733ms</td>
+<td>Internal server error, needs investigation.</td>
 </tr>
 <tr>
-<td>/api/inventory/check</td>
-<td>POST</td>
-<td>200 OK</td>
-<td>118ms</td>
-<td>Performance within acceptable limits</td>
-</tr>
-<tr>
-<td>/api/shipping/quote</td>
-<td>POST</td>
-<td>200 OK</td>
-<td>134ms</td>
-<td>Performance within acceptable limits</td>
-</tr>
-<tr>
-<td>/api/customers/{id}</td>
+<td>/api/v1/resource</td>
 <td>GET</td>
-<td>200 OK</td>
-<td>145ms</td>
-<td>Consistent performance</td>
+<td>200</td>
+<td>3569ms</td>
+<td>Slow request, potential performance issue.</td>
 </tr>
 </tbody>
 </table>
@@ -241,28 +227,34 @@ pre{
 </thead>
 <tbody>
 <tr>
-<td>SQLTimeoutException</td>
-<td>10</td>
-<td>High</td>
-<td>Connection pool exhausted</td>
-</tr>
-<tr>
-<td>SocketTimeoutException</td>
-<td>5</td>
-<td>High</td>
-<td>Payment processing failures</td>
-</tr>
-<tr>
-<td>ConnectException</td>
-<td>8</td>
-<td>High</td>
-<td>Inventory service unavailable</td>
-</tr>
-<tr>
-<td>OutOfMemoryError</td>
+<td>Unauthorized: token expired</td>
 <td>1</td>
-<td>Critical</td>
-<td>High heap memory usage</td>
+<td>High</td>
+<td>Token management issue.</td>
+</tr>
+<tr>
+<td>Failed to mount volume</td>
+<td>2</td>
+<td>Medium</td>
+<td>Volume configuration or availability issue.</td>
+</tr>
+<tr>
+<td>OOMKilled</td>
+<td>1</td>
+<td>High</td>
+<td>Memory limit exceeded for the container.</td>
+</tr>
+<tr>
+<td>Failed to connect to database</td>
+<td>1</td>
+<td>High</td>
+<td>Database service unavailable or misconfigured.</td>
+</tr>
+<tr>
+<td>Failed to pull image</td>
+<td>3</td>
+<td>Medium</td>
+<td>Image repository issues or network problems.</td>
 </tr>
 </tbody>
 </table>
@@ -273,35 +265,35 @@ pre{
 </ul>
 <h3>Memory</h3>
 <ul>
-<li>Heap memory usage peaked at 96%, indicating a risk of OutOfMemory errors.</li>
+<li>OOMKilled events indicate memory limits are being exceeded.</li>
 </ul>
 <h3>Heap</h3>
 <ul>
-<li>Heap memory usage reached critical levels, leading to application crashes.</li>
+<li>Not Available in Logs.</li>
 </ul>
 <h3>GC</h3>
 <ul>
-<li>GC pauses were detected, with one instance taking 850ms, indicating potential performance issues.</li>
+<li>Not Available in Logs.</li>
 </ul>
 <h3>Disk</h3>
 <ul>
-<li>Not Available in Logs.</li>
+<li>Disk pressure warnings indicate potential issues with disk space or I/O performance.</li>
 </ul>
 <h3>Thread Pool</h3>
 <ul>
-<li>Thread pool utilization reached 95%, indicating potential bottlenecks in request processing.</li>
+<li>Not Available in Logs.</li>
 </ul>
 <h3>Connection Pool</h3>
 <ul>
-<li>Connection pool was exhausted multiple times, leading to SQLTimeoutExceptions.</li>
+<li>Not Available in Logs.</li>
 </ul>
 <h2>7. Database Analysis</h2>
 <ul>
-<li>Connection pool exhaustion was a recurring issue, leading to SQLTimeoutExceptions and impacting the ability to save orders.</li>
+<li>Connection refused errors indicate potential issues with database availability or configuration.</li>
 </ul>
 <h2>8. Pod Health Analysis</h2>
 <ul>
-<li>The pod experienced OOMKilled events, indicating that the application exceeded its memory limits.</li>
+<li>Multiple health checks passed successfully, indicating that most pods are operational.</li>
 </ul>
 <h2>9. Timeline of Important Events</h2>
 <table>
@@ -314,49 +306,62 @@ pre{
 </thead>
 <tbody>
 <tr>
-<td>2026-07-30 09:00:30</td>
-<td>Thread pool utilization at 60%</td>
+<td>2026-07-31T00:00:00.056Z</td>
+<td>Liveness probe succeeded</td>
+<td>Info</td>
+</tr>
+<tr>
+<td>2026-07-31T00:00:01.135Z</td>
+<td>Config map updated</td>
+<td>Info</td>
+</tr>
+<tr>
+<td>2026-07-31T00:00:04.200Z</td>
+<td>Processed request in 1799ms</td>
+<td>Info</td>
+</tr>
+<tr>
+<td>2026-07-31T00:00:06.295Z</td>
+<td>Slow request detected</td>
 <td>Warning</td>
 </tr>
 <tr>
-<td>2026-07-30 09:01:41</td>
-<td>Pod OOMKilled</td>
-<td>Critical</td>
+<td>2026-07-31T00:00:09.210Z</td>
+<td>Leader election won</td>
+<td>Info</td>
 </tr>
 <tr>
-<td>2026-07-30 09:01:44</td>
-<td>Pod restarted</td>
-<td>Normal</td>
+<td>2026-07-31T00:00:10.387Z</td>
+<td>Processed request in 1589ms</td>
+<td>Info</td>
 </tr>
 <tr>
-<td>2026-07-30 09:01:48</td>
-<td>Unhandled exception processing /api/shipping/quote</td>
-<td>High</td>
-</tr>
-<tr>
-<td>2026-07-30 09:02:32</td>
-<td>Connection refused to inventory service</td>
-<td>High</td>
+<td>2026-07-31T00:00:11.038Z</td>
+<td>Internal server error processing request</td>
+<td>Error</td>
 </tr>
 </tbody>
 </table>
 <h2>10. Root Cause Analysis</h2>
-<p>The primary issues stem from high memory usage leading to OutOfMemory errors, connection pool exhaustion due to high traffic, and unhandled exceptions in the application code. The application is not adequately handling resource limits, resulting in service interruptions.</p>
+<ul>
+<li>The primary issues identified include token expiration, memory limits being exceeded, and database connection failures. These issues need to be addressed to ensure system stability and performance.</li>
+</ul>
 <h2>11. Recommendations</h2>
 <ol>
-<li><strong>Increase Memory Limits</strong>: Consider increasing the memory limit for the application to prevent OOM errors.</li>
-<li><strong>Optimize Connection Pool Settings</strong>: Review and optimize the connection pool settings to handle higher loads.</li>
-<li><strong>Implement Error Handling</strong>: Improve error handling to manage exceptions gracefully and provide fallback mechanisms.</li>
-<li><strong>Monitor Resource Utilization</strong>: Implement monitoring tools to track resource utilization and alert on critical thresholds.</li>
-<li><strong>Load Testing</strong>: Conduct load testing to identify bottlenecks and optimize performance under high traffic conditions.</li>
+<li>Review and optimize token management to prevent unauthorized access.</li>
+<li>Increase memory limits for containers that are frequently OOMKilled.</li>
+<li>Investigate and resolve database connection issues.</li>
+<li>Monitor disk usage closely to prevent disk pressure warnings.</li>
+<li>Optimize slow API requests to improve overall performance.</li>
 </ol>
 <h2>12. Overall Assessment</h2>
-<p>The Order Service application is currently facing significant performance challenges due to high memory usage, connection pool exhaustion, and unhandled exceptions. Immediate action is required to address these issues to ensure stable and reliable service delivery.</p>
+<p>The logs indicate a generally healthy OpenShift environment, but with critical issues that need immediate attention to prevent service disruptions. Addressing the identified problems will enhance the reliability and performance of the applications running in the cluster.</p>
 <h2>13. Information Not Available</h2>
 <ul>
-<li>JVM Version</li>
-<li>Disk Usage Statistics</li>
-<li>Detailed CPU Utilization Metrics</li>
+<li>OpenShift Version</li>
+<li>Kubernetes Version</li>
+<li>Cluster Name</li>
+<li>Detailed resource utilization metrics (CPU, Memory, Heap, GC, Disk, Thread Pool, Connection Pool)</li>
 </ul>
 
 </div>
