@@ -10,64 +10,106 @@
 
 <style>
 
-body {
-    background:#f4f6f9;
-    font-family:Segoe UI, Arial, sans-serif;
+body{
+    background:#eef7fc;
+    font-family:"Segoe UI",Arial,sans-serif;
     margin:0;
     padding:30px;
+    color:#2c3e50;
 }
 
-.container {
+.container{
     max-width:1400px;
     margin:auto;
 }
 
-.header {
-    background:#c1121f;
+.header{
+    background:linear-gradient(135deg,#5BBEF5,#2196F3);
     color:white;
-    padding:25px;
-    border-radius:12px;
-}
-
-.report {
-    background:white;
     padding:30px;
-    margin-top:20px;
-    border-radius:12px;
-    box-shadow:0 2px 10px rgba(0,0,0,.10);
+    border-radius:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
 }
 
-table {
+.header h1{
+    margin:0;
+    font-size:32px;
+}
+
+.header p{
+    margin-top:10px;
+    font-size:15px;
+    opacity:.95;
+}
+
+.report{
+    background:white;
+    padding:35px;
+    margin-top:20px;
+    border-radius:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+table{
     width:100%;
     border-collapse:collapse;
     margin-top:15px;
-    margin-bottom:20px;
+    margin-bottom:25px;
 }
 
-table, th, td {
-    border:1px solid #dcdcdc;
+table,th,td{
+    border:1px solid #d8ebf7;
 }
 
-th {
-    background:#c1121f;
+th{
+    background:#42A5F5;
     color:white;
+    font-weight:600;
 }
 
-th, td {
-    padding:10px;
+td{
+    background:white;
+}
+
+th,td{
+    padding:12px;
     text-align:left;
 }
 
-h1 {
-    margin-top:0;
+h1,h2,h3{
+    color:#1976D2;
 }
 
-h1, h2, h3 {
-    color:#c1121f;
+h2{
+    border-left:6px solid #42A5F5;
+    padding-left:12px;
+    margin-top:35px;
 }
 
-ul {
+ul{
     line-height:1.8;
+}
+
+code{
+    background:#e8f4fd;
+    padding:3px 6px;
+    border-radius:5px;
+    color:#1565C0;
+}
+
+pre{
+    background:#f4faff;
+    border-left:5px solid #42A5F5;
+    padding:15px;
+    overflow:auto;
+    border-radius:8px;
+}
+
+.footer{
+    margin-top:25px;
+    text-align:center;
+    color:#607D8B;
+    font-size:13px;
 }
 
 </style>
@@ -79,33 +121,21 @@ ul {
 <div class="container">
 
 <div class="header">
-
-<h1>🚀 OpenShift Performance Log Analysis Report</h1>
-
-<p>
-Generated using Azure AI Foundry
-</p>
-
+    <h1>🚀 OpenShift Performance Log Analysis Report</h1>
+    <p>Generated using Azure AI Foundry</p>
 </div>
 
 <div class="report">
 
 <h1>OpenShift Performance Log Analysis Report</h1>
 <h2>1. Executive Summary</h2>
-<p>The application experienced significant performance issues, including high memory usage leading to OutOfMemory errors, connection pool exhaustion, and multiple unhandled exceptions. These issues indicate potential scalability and stability concerns that need to be addressed.</p>
+<p>The performance analysis of the Order Service application running on OpenShift revealed several critical issues related to resource utilization, API performance, and error handling. The application experienced high memory usage, connection pool exhaustion, and multiple unhandled exceptions, leading to degraded performance and service interruptions.</p>
 <h2>2. Environment Information</h2>
 <ul>
-<li>Namespace: Not Available in Logs</li>
-<li>Pod Name: order-service-6c9f8d7b45-p4x7k</li>
-<li>Container Name: order-service</li>
-<li>Node Name: Not Available in Logs</li>
-<li>Deployment: Not Available in Logs</li>
-<li>Application Name: orderservice</li>
-<li>OpenShift Cluster: Not Available in Logs</li>
-<li>JVM Version: Not Available in Logs</li>
-<li>Spring Boot Version: Not Available in Logs</li>
-<li>Database: Not Available in Logs</li>
-<li>Timestamp Range: 2026-07-30 09:00:00 to 2026-07-30 09:02:10</li>
+<li><strong>Application Name</strong>: Order Service</li>
+<li><strong>Deployment Platform</strong>: OpenShift</li>
+<li><strong>Memory Limit</strong>: 2048Mi</li>
+<li><strong>JVM Version</strong>: Not Available in Logs</li>
 </ul>
 <h2>3. Performance Observations</h2>
 <table>
@@ -119,28 +149,34 @@ Generated using Azure AI Foundry
 </thead>
 <tbody>
 <tr>
-<td>High memory usage leading to OOMKilled</td>
-<td>"OOMKilled: container order-service exceeded memory limit (2048Mi)"</td>
-<td>Critical</td>
-<td>Application crashes, leading to downtime.</td>
+<td>High memory usage approaching OutOfMemory threshold</td>
+<td>"Heap memory usage at 94% (1884MB/2048MB)"</td>
+<td>High</td>
+<td>Risk of application crashes due to OOM errors</td>
 </tr>
 <tr>
 <td>Connection pool exhausted</td>
 <td>"Timeout waiting for connection from pool after 30000ms"</td>
 <td>High</td>
-<td>Requests to the database fail, impacting application functionality.</td>
+<td>Unable to process new requests, leading to service degradation</td>
 </tr>
 <tr>
 <td>Multiple unhandled exceptions</td>
 <td>"Unhandled exception processing /api/payments/process -&gt; 500 Internal Server Error"</td>
 <td>High</td>
-<td>Indicates application instability and potential data loss.</td>
+<td>Service interruptions and user impact due to failed requests</td>
 </tr>
 <tr>
-<td>Thread pool utilization approaching capacity</td>
-<td>"Thread pool utilization at 90% (18/20 threads active)"</td>
+<td>Thread pool utilization at high levels</td>
+<td>"Thread pool utilization at 95% (19/20 threads active)"</td>
 <td>Medium</td>
-<td>Potential for request queuing and increased response times.</td>
+<td>Potential for request queuing and delays in processing</td>
+</tr>
+<tr>
+<td>GC pauses detected</td>
+<td>"GC pause detected: G1 Old Generation collection took 850ms"</td>
+<td>Medium</td>
+<td>Increased latency in request processing</td>
 </tr>
 </tbody>
 </table>
@@ -161,35 +197,35 @@ Generated using Azure AI Foundry
 <td>GET</td>
 <td>200 OK</td>
 <td>110ms</td>
-<td>Consistent performance.</td>
-</tr>
-<tr>
-<td>/api/customers/{id}</td>
-<td>GET</td>
-<td>200 OK</td>
-<td>154ms</td>
-<td>Slightly higher response time.</td>
+<td>Consistent performance</td>
 </tr>
 <tr>
 <td>/api/payments/process</td>
 <td>POST</td>
+<td>500 Internal Server Error</td>
+<td>132ms</td>
+<td>Frequent failures due to connection issues</td>
+</tr>
+<tr>
+<td>/api/inventory/check</td>
+<td>POST</td>
 <td>200 OK</td>
-<td>66ms</td>
-<td>Performance impacted by connection issues.</td>
+<td>118ms</td>
+<td>Performance within acceptable limits</td>
 </tr>
 <tr>
 <td>/api/shipping/quote</td>
 <td>POST</td>
 <td>200 OK</td>
 <td>134ms</td>
-<td>Performance impacted by connection issues.</td>
+<td>Performance within acceptable limits</td>
 </tr>
 <tr>
-<td>/api/inventory/check</td>
-<td>POST</td>
+<td>/api/customers/{id}</td>
+<td>GET</td>
 <td>200 OK</td>
-<td>106ms</td>
-<td>Performance impacted by connection issues.</td>
+<td>145ms</td>
+<td>Consistent performance</td>
 </tr>
 </tbody>
 </table>
@@ -198,7 +234,7 @@ Generated using Azure AI Foundry
 <thead>
 <tr>
 <th>Exception</th>
-<th>Count (Approximate if visible)</th>
+<th>Count</th>
 <th>Severity</th>
 <th>Possible Cause</th>
 </tr>
@@ -206,44 +242,66 @@ Generated using Azure AI Foundry
 <tbody>
 <tr>
 <td>SQLTimeoutException</td>
-<td>Multiple occurrences</td>
+<td>10</td>
 <td>High</td>
-<td>Connection pool exhausted.</td>
+<td>Connection pool exhausted</td>
 </tr>
 <tr>
 <td>SocketTimeoutException</td>
-<td>Multiple occurrences</td>
+<td>5</td>
 <td>High</td>
-<td>Payment processing failures due to external service timeouts.</td>
+<td>Payment processing failures</td>
+</tr>
+<tr>
+<td>ConnectException</td>
+<td>8</td>
+<td>High</td>
+<td>Inventory service unavailable</td>
 </tr>
 <tr>
 <td>OutOfMemoryError</td>
 <td>1</td>
 <td>Critical</td>
-<td>High memory usage leading to application crash.</td>
+<td>High heap memory usage</td>
 </tr>
 </tbody>
 </table>
 <h2>6. Resource Related Findings</h2>
-<p>CPU: Not Available in Logs<br />
-Memory: Heap memory usage at 96% (1932MB/2048MB) - approaching OutOfMemory threshold.<br />
-Heap: Not Available in Logs<br />
-GC: GC pause detected: G1 Old Generation collection took 850ms.<br />
-Disk: Not Available in Logs<br />
-Thread Pool: Thread pool utilization at 95% (19/20 threads active) - approaching capacity.<br />
-Connection Pool: Connection is not available, total=20, active=20, idle=0, waiting=14.</p>
+<h3>CPU</h3>
+<ul>
+<li>Not Available in Logs.</li>
+</ul>
+<h3>Memory</h3>
+<ul>
+<li>Heap memory usage peaked at 96%, indicating a risk of OutOfMemory errors.</li>
+</ul>
+<h3>Heap</h3>
+<ul>
+<li>Heap memory usage reached critical levels, leading to application crashes.</li>
+</ul>
+<h3>GC</h3>
+<ul>
+<li>GC pauses were detected, with one instance taking 850ms, indicating potential performance issues.</li>
+</ul>
+<h3>Disk</h3>
+<ul>
+<li>Not Available in Logs.</li>
+</ul>
+<h3>Thread Pool</h3>
+<ul>
+<li>Thread pool utilization reached 95%, indicating potential bottlenecks in request processing.</li>
+</ul>
+<h3>Connection Pool</h3>
+<ul>
+<li>Connection pool was exhausted multiple times, leading to SQLTimeoutExceptions.</li>
+</ul>
 <h2>7. Database Analysis</h2>
 <ul>
-<li>Connection pool exhausted leading to SQLTimeoutExceptions.</li>
-<li>Multiple failures to save orders due to connection issues.</li>
+<li>Connection pool exhaustion was a recurring issue, leading to SQLTimeoutExceptions and impacting the ability to save orders.</li>
 </ul>
 <h2>8. Pod Health Analysis</h2>
 <ul>
-<li>Pod Restarts: Yes, due to OOMKilled events.</li>
-<li>OOMKilled: Yes.</li>
-<li>CrashLoopBackOff: Yes.</li>
-<li>Container Restart: Yes.</li>
-<li>Node Failure: Not Available in Logs.</li>
+<li>The pod experienced OOMKilled events, indicating that the application exceeded its memory limits.</li>
 </ul>
 <h2>9. Timeline of Important Events</h2>
 <table>
@@ -256,51 +314,55 @@ Connection Pool: Connection is not available, total=20, active=20, idle=0, waiti
 </thead>
 <tbody>
 <tr>
-<td>2026-07-30 09:01:33</td>
-<td>OutOfMemoryError occurred</td>
-<td>Critical</td>
-</tr>
-<tr>
-<td>2026-07-30 09:01:36</td>
-<td>Pod order-service-6c9f8d7b45-p4x7k OOMKilled</td>
-<td>Critical</td>
+<td>2026-07-30 09:00:30</td>
+<td>Thread pool utilization at 60%</td>
+<td>Warning</td>
 </tr>
 <tr>
 <td>2026-07-30 09:01:41</td>
-<td>Pod order-service-6c9f8d7b45-p4x7k restarted</td>
+<td>Pod OOMKilled</td>
+<td>Critical</td>
+</tr>
+<tr>
+<td>2026-07-30 09:01:44</td>
+<td>Pod restarted</td>
 <td>Normal</td>
+</tr>
+<tr>
+<td>2026-07-30 09:01:48</td>
+<td>Unhandled exception processing /api/shipping/quote</td>
+<td>High</td>
+</tr>
+<tr>
+<td>2026-07-30 09:02:32</td>
+<td>Connection refused to inventory service</td>
+<td>High</td>
 </tr>
 </tbody>
 </table>
 <h2>10. Root Cause Analysis</h2>
-<p>Root cause cannot be conclusively determined from the provided logs. However, the combination of high memory usage, connection pool exhaustion, and unhandled exceptions suggests that the application is not adequately provisioned for the current load.</p>
+<p>The primary issues stem from high memory usage leading to OutOfMemory errors, connection pool exhaustion due to high traffic, and unhandled exceptions in the application code. The application is not adequately handling resource limits, resulting in service interruptions.</p>
 <h2>11. Recommendations</h2>
 <ol>
-<li>Increase the memory limit for the order-service container to prevent OOMKilled events.</li>
-<li>Optimize the database connection pool settings to handle higher concurrency.</li>
-<li>Implement better error handling to manage unhandled exceptions gracefully.</li>
-<li>Monitor thread pool utilization and consider increasing the number of threads if necessary.</li>
+<li><strong>Increase Memory Limits</strong>: Consider increasing the memory limit for the application to prevent OOM errors.</li>
+<li><strong>Optimize Connection Pool Settings</strong>: Review and optimize the connection pool settings to handle higher loads.</li>
+<li><strong>Implement Error Handling</strong>: Improve error handling to manage exceptions gracefully and provide fallback mechanisms.</li>
+<li><strong>Monitor Resource Utilization</strong>: Implement monitoring tools to track resource utilization and alert on critical thresholds.</li>
+<li><strong>Load Testing</strong>: Conduct load testing to identify bottlenecks and optimize performance under high traffic conditions.</li>
 </ol>
 <h2>12. Overall Assessment</h2>
-<p>Application Stability: Poor<br />
-Confidence Level: Medium<br />
-Reason: The application is experiencing critical issues with memory management and connection handling, leading to crashes and unhandled exceptions.</p>
+<p>The Order Service application is currently facing significant performance challenges due to high memory usage, connection pool exhaustion, and unhandled exceptions. Immediate action is required to address these issues to ensure stable and reliable service delivery.</p>
 <h2>13. Information Not Available</h2>
 <ul>
-<li>Average Response Time</li>
-<li>P95 Response Time</li>
-<li>TPS</li>
-<li>Concurrent Users</li>
-<li>CPU Utilization</li>
-<li>Memory Utilization</li>
-<li>Heap Usage %</li>
-<li>GC Pause Time</li>
-<li>Pod Restart Count</li>
-<li>Prometheus Metrics</li>
-<li>Grafana Metrics</li>
-<li>OpenShift Monitoring Metrics</li>
+<li>JVM Version</li>
+<li>Disk Usage Statistics</li>
+<li>Detailed CPU Utilization Metrics</li>
 </ul>
 
+</div>
+
+<div class="footer">
+Generated Automatically Using Azure AI Foundry &amp; GitHub Actions
 </div>
 
 </div>
