@@ -127,242 +127,175 @@ pre{
 
 <div class="report">
 
-<h1>OpenShift Performance Log Analysis Report</h1>
-<h2>1. Executive Summary</h2>
-<p>This report provides an analysis of the performance logs from the OpenShift environment, focusing on key observations, API performance, exceptions, resource utilization, database interactions, pod health, and significant events.</p>
-<h2>2. Environment Information</h2>
+<h1>OpenShift Performance Analysis Report</h1>
+<h2>Executive Summary</h2>
+<p>The application experienced significant performance issues during the testing period, particularly related to memory management and backend availability. The system was unstable, with multiple instances of OutOfMemoryError and HTTP 503 errors indicating backend unavailability. Overall, the application health score is <strong>45/100</strong>.</p>
+<h2>Test Phase Summary</h2>
 <ul>
-<li><strong>Date of Analysis:</strong> July 31, 2026</li>
-<li><strong>OpenShift Version:</strong> Not Available in Logs</li>
-<li><strong>Kubernetes Version:</strong> Not Available in Logs</li>
-<li><strong>Cluster Name:</strong> Not Available in Logs</li>
+<li><strong>Load Test</strong>: Identified by the consistent pattern of requests with increasing latency and CPU usage, primarily from <code>payment-service-*</code> components.</li>
+<li><strong>Endurance Test</strong>: Characterized by sustained load over time, with requests showing gradual increases in latency and resource utilization.</li>
+<li><strong>Stress Test</strong>: Noted by the sudden spikes in request latency and resource usage, particularly towards the end of the log, indicating the system's limits were being tested.</li>
+<li><strong>Spike Test</strong>: Not explicitly identified in the logs, as the load appeared to increase gradually rather than in sudden spikes.</li>
 </ul>
-<h2>3. Performance Observations</h2>
-<table>
-<thead>
-<tr>
-<th>Finding</th>
-<th>Evidence from Logs</th>
-<th>Severity</th>
-<th>Impact</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Unauthorized access due to token expiration</td>
-<td><code>{"level":"error","message":"Unauthorized: token expired"}</code></td>
-<td>High</td>
-<td>Potential service disruption for users relying on authentication.</td>
-</tr>
-<tr>
-<td>Failed to mount volume due to timeout</td>
-<td><code>{"level":"error","message":"Failed to mount volume: timed out waiting for the condition"}</code></td>
-<td>Medium</td>
-<td>Could lead to application downtime if critical volumes are not mounted.</td>
-</tr>
-<tr>
-<td>OOMKilled: container exceeded memory limit</td>
-<td><code>{"level":"error","message":"OOMKilled: container exceeded memory limit"}</code></td>
-<td>High</td>
-<td>Application may crash, leading to service unavailability.</td>
-</tr>
-<tr>
-<td>Slow request detected</td>
-<td><code>{"level":"warning","message":"Slow request detected: 3258ms"}</code></td>
-<td>Medium</td>
-<td>Indicates potential performance bottlenecks affecting user experience.</td>
-</tr>
-<tr>
-<td>Node pressure detected: DiskPressure</td>
-<td><code>{"level":"warning","message":"Node pressure detected: DiskPressure"}</code></td>
-<td>High</td>
-<td>Could lead to degraded performance or application failures if not addressed.</td>
-</tr>
-</tbody>
-</table>
-<h2>4. API Performance Summary</h2>
-<table>
-<thead>
-<tr>
-<th>API Endpoint</th>
-<th>HTTP Method</th>
-<th>Response Code</th>
-<th>Execution Time</th>
-<th>Observations</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>/api/v1/resource</td>
-<td>GET</td>
-<td>200</td>
-<td>1799ms</td>
-<td>Normal response time.</td>
-</tr>
-<tr>
-<td>/api/v1/resource</td>
-<td>POST</td>
-<td>500</td>
-<td>3733ms</td>
-<td>Internal server error, needs investigation.</td>
-</tr>
-<tr>
-<td>/api/v1/resource</td>
-<td>GET</td>
-<td>200</td>
-<td>3569ms</td>
-<td>Slow request, potential performance issue.</td>
-</tr>
-</tbody>
-</table>
-<h2>5. Exceptions Summary</h2>
-<table>
-<thead>
-<tr>
-<th>Exception</th>
-<th>Count</th>
-<th>Severity</th>
-<th>Possible Cause</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Unauthorized: token expired</td>
-<td>1</td>
-<td>High</td>
-<td>Token management issue.</td>
-</tr>
-<tr>
-<td>Failed to mount volume</td>
-<td>2</td>
-<td>Medium</td>
-<td>Volume configuration or availability issue.</td>
-</tr>
-<tr>
-<td>OOMKilled</td>
-<td>1</td>
-<td>High</td>
-<td>Memory limit exceeded for the container.</td>
-</tr>
-<tr>
-<td>Failed to connect to database</td>
-<td>1</td>
-<td>High</td>
-<td>Database service unavailable or misconfigured.</td>
-</tr>
-<tr>
-<td>Failed to pull image</td>
-<td>3</td>
-<td>Medium</td>
-<td>Image repository issues or network problems.</td>
-</tr>
-</tbody>
-</table>
-<h2>6. Resource Related Findings</h2>
-<h3>CPU</h3>
+<h2>Performance Metrics</h2>
 <ul>
-<li>Not Available in Logs.</li>
+<li><strong>Response Time</strong>: Gradually increased from ~120ms to over 3000ms.</li>
+<li><strong>Database Time</strong>: Generally stable but increased as the load increased.</li>
+<li><strong>CPU Utilization</strong>: Peaked at 100% during stress testing.</li>
+<li><strong>Memory Utilization</strong>: Consistently increased, with multiple instances of OutOfMemoryError.</li>
+<li><strong>Heap Usage</strong>: Approached the maximum limit of 4096MB, leading to frequent Full GC pauses.</li>
+<li><strong>Active Threads</strong>: Increased steadily, indicating higher load handling.</li>
+<li><strong>Thread Pool Usage</strong>: Approached limits, indicating potential thread starvation.</li>
+<li><strong>GC Activity</strong>: Frequent Full GC pauses, indicating memory pressure.</li>
+<li><strong>SQL Pool Usage</strong>: Encountered connection timeouts, indicating exhaustion of available connections.</li>
 </ul>
-<h3>Memory</h3>
-<ul>
-<li>OOMKilled events indicate memory limits are being exceeded.</li>
-</ul>
-<h3>Heap</h3>
-<ul>
-<li>Not Available in Logs.</li>
-</ul>
-<h3>GC</h3>
-<ul>
-<li>Not Available in Logs.</li>
-</ul>
-<h3>Disk</h3>
-<ul>
-<li>Disk pressure warnings indicate potential issues with disk space or I/O performance.</li>
-</ul>
-<h3>Thread Pool</h3>
-<ul>
-<li>Not Available in Logs.</li>
-</ul>
-<h3>Connection Pool</h3>
-<ul>
-<li>Not Available in Logs.</li>
-</ul>
-<h2>7. Database Analysis</h2>
-<ul>
-<li>Connection refused errors indicate potential issues with database availability or configuration.</li>
-</ul>
-<h2>8. Pod Health Analysis</h2>
-<ul>
-<li>Multiple health checks passed successfully, indicating that most pods are operational.</li>
-</ul>
-<h2>9. Timeline of Important Events</h2>
+<h2>Errors Detected</h2>
 <table>
 <thead>
 <tr>
 <th>Timestamp</th>
-<th>Event</th>
 <th>Severity</th>
+<th>Error</th>
+<th>Root Cause</th>
+<th>Recommendation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>2026-07-31T00:00:00.056Z</td>
-<td>Liveness probe succeeded</td>
-<td>Info</td>
+<td>2026-07-31T09:00:00.000Z</td>
+<td>High</td>
+<td>HTTP 503 Service Unavailable reqId=REQ-200000 endpoint=/api/payments</td>
+<td>Backend unavailable</td>
+<td>Investigate backend service health</td>
 </tr>
 <tr>
-<td>2026-07-31T00:00:01.135Z</td>
-<td>Config map updated</td>
-<td>Info</td>
+<td>2026-07-31T09:01:07.700Z</td>
+<td>Critical</td>
+<td>OutOfMemoryError: Java heap space</td>
+<td>Memory limit reached</td>
+<td>Increase JVM heap size</td>
 </tr>
 <tr>
-<td>2026-07-31T00:00:04.200Z</td>
-<td>Processed request in 1799ms</td>
-<td>Info</td>
+<td>2026-07-31T09:01:21.600Z</td>
+<td>Critical</td>
+<td>OutOfMemoryError: Java heap space</td>
+<td>Memory limit reached</td>
+<td>Increase JVM heap size</td>
 </tr>
 <tr>
-<td>2026-07-31T00:00:06.295Z</td>
-<td>Slow request detected</td>
-<td>Warning</td>
+<td>2026-07-31T09:01:35.400Z</td>
+<td>Critical</td>
+<td>Kubernetes Liveness probe failed. Container restarting</td>
+<td>Application unresponsive</td>
+<td>Investigate application responsiveness</td>
 </tr>
 <tr>
-<td>2026-07-31T00:00:09.210Z</td>
-<td>Leader election won</td>
-<td>Info</td>
+<td>2026-07-31T09:02:29.900Z</td>
+<td>High</td>
+<td>SQLTransientConnectionException: HikariPool-1 - Connection not available</td>
+<td>Connection pool exhausted</td>
+<td>Increase Hikari connection pool size</td>
 </tr>
 <tr>
-<td>2026-07-31T00:00:10.387Z</td>
-<td>Processed request in 1589ms</td>
-<td>Info</td>
-</tr>
-<tr>
-<td>2026-07-31T00:00:11.038Z</td>
-<td>Internal server error processing request</td>
-<td>Error</td>
+<td>2026-07-31T09:02:25.500Z</td>
+<td>High</td>
+<td>HTTP 503 Service Unavailable reqId=REQ-200485 endpoint=/api/payments</td>
+<td>Backend unavailable</td>
+<td>Investigate backend service health</td>
 </tr>
 </tbody>
 </table>
-<h2>10. Root Cause Analysis</h2>
+<h2>Resource Utilization</h2>
 <ul>
-<li>The primary issues identified include token expiration, memory limits being exceeded, and database connection failures. These issues need to be addressed to ensure system stability and performance.</li>
+<li><strong>CPU</strong>: Peaked at 100% during stress testing, indicating resource saturation.</li>
+<li><strong>Memory</strong>: Consistently increased, leading to multiple OutOfMemoryErrors.</li>
+<li><strong>Heap Usage</strong>: Frequently reached maximum limits, causing Full GC pauses.</li>
+<li><strong>Active Threads</strong>: Increased significantly, indicating high load handling.</li>
 </ul>
-<h2>11. Recommendations</h2>
+<h2>Kubernetes Events</h2>
+<ul>
+<li><strong>Pod Restarts</strong>: Multiple instances of container restarts due to liveness probe failures.</li>
+<li><strong>Liveness Probe Failures</strong>: Indicated application unresponsiveness.</li>
+<li><strong>Container Restarts</strong>: Frequent restarts due to memory issues and probe failures.</li>
+</ul>
+<h2>Performance Bottlenecks</h2>
+<ul>
+<li><strong>OutOfMemoryErrors</strong>: Indicate insufficient memory allocation for the application.</li>
+<li><strong>HTTP 503 Errors</strong>: Suggest backend service unavailability.</li>
+<li><strong>High CPU Utilization</strong>: Indicates potential resource saturation and performance degradation.</li>
+</ul>
+<h2>Root Cause Analysis</h2>
 <ol>
-<li>Review and optimize token management to prevent unauthorized access.</li>
-<li>Increase memory limits for containers that are frequently OOMKilled.</li>
-<li>Investigate and resolve database connection issues.</li>
-<li>Monitor disk usage closely to prevent disk pressure warnings.</li>
-<li>Optimize slow API requests to improve overall performance.</li>
+<li><strong>OutOfMemoryError</strong>: </li>
+<li><strong>Evidence</strong>: Multiple instances logged.</li>
+<li><strong>Impact</strong>: Application crashes and unavailability.</li>
+<li><strong>Root Cause</strong>: Insufficient heap size.</li>
+<li>
+<p><strong>Recommendation</strong>: Increase JVM heap size.</p>
+</li>
+<li>
+<p><strong>HTTP 503 Errors</strong>: </p>
+</li>
+<li><strong>Evidence</strong>: Logged during high load periods.</li>
+<li><strong>Impact</strong>: Service unavailability for users.</li>
+<li><strong>Root Cause</strong>: Backend service issues.</li>
+<li>
+<p><strong>Recommendation</strong>: Investigate backend service health.</p>
+</li>
+<li>
+<p><strong>Kubernetes Liveness Probe Failures</strong>: </p>
+</li>
+<li><strong>Evidence</strong>: Multiple failures logged.</li>
+<li><strong>Impact</strong>: Container restarts and service disruption.</li>
+<li><strong>Root Cause</strong>: Application unresponsiveness.</li>
+<li>
+<p><strong>Recommendation</strong>: Optimize application performance.</p>
+</li>
+<li>
+<p><strong>SQLTransientConnectionException</strong>: </p>
+</li>
+<li><strong>Evidence</strong>: Connection timeouts logged.</li>
+<li><strong>Impact</strong>: Service degradation and unavailability.</li>
+<li><strong>Root Cause</strong>: Exhaustion of connection pool.</li>
+<li>
+<p><strong>Recommendation</strong>: Increase Hikari connection pool size.</p>
+</li>
+<li>
+<p><strong>High CPU Utilization</strong>: </p>
+</li>
+<li><strong>Evidence</strong>: Peaked at 100% during stress testing.</li>
+<li><strong>Impact</strong>: Performance degradation.</li>
+<li><strong>Root Cause</strong>: Insufficient resources allocated.</li>
+<li><strong>Recommendation</strong>: Adjust CPU requests/limits.</li>
 </ol>
-<h2>12. Overall Assessment</h2>
-<p>The logs indicate a generally healthy OpenShift environment, but with critical issues that need immediate attention to prevent service disruptions. Addressing the identified problems will enhance the reliability and performance of the applications running in the cluster.</p>
-<h2>13. Information Not Available</h2>
+<h2>Recommendations</h2>
+<h3>Immediate Actions</h3>
 <ul>
-<li>OpenShift Version</li>
-<li>Kubernetes Version</li>
-<li>Cluster Name</li>
-<li>Detailed resource utilization metrics (CPU, Memory, Heap, GC, Disk, Thread Pool, Connection Pool)</li>
+<li>Increase JVM heap size to prevent OutOfMemoryErrors.</li>
+<li>Investigate backend service health to resolve HTTP 503 errors.</li>
+<li>Increase Hikari connection pool size to avoid connection timeouts.</li>
 </ul>
+<h3>Short-Term Improvements</h3>
+<ul>
+<li>Optimize SQL queries to reduce database time.</li>
+<li>Tune JVM garbage collection settings to improve performance.</li>
+<li>Adjust CPU and memory requests/limits for better resource allocation.</li>
+</ul>
+<h3>Long-Term Improvements</h3>
+<ul>
+<li>Implement autoscaling for better resource management.</li>
+<li>Optimize thread pool configurations to prevent thread starvation.</li>
+<li>Investigate and resolve potential memory leaks in the application.</li>
+</ul>
+<h2>Risk Assessment</h2>
+<ul>
+<li><strong>Stability Rating</strong>: 3/10</li>
+<li><strong>Performance Rating</strong>: 4/10</li>
+<li><strong>Scalability Rating</strong>: 5/10</li>
+<li><strong>Reliability Rating</strong>: 4/10</li>
+</ul>
+<h2>Overall Health Score</h2>
+<p><strong>45/100</strong></p>
 
 </div>
 
