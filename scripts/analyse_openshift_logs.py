@@ -21,7 +21,7 @@ DOCS = Path("docs")
 DOCS.mkdir(exist_ok=True)
 
 # ============================================================
-# Read Log File
+# Read OpenShift Logs
 # ============================================================
 
 with open(
@@ -35,7 +35,7 @@ with open(
 log_content = log_content[:100000]
 
 # ============================================================
-# Prompt
+# AI Prompt
 # ============================================================
 
 SYSTEM_PROMPT = """
@@ -50,7 +50,7 @@ IMPORTANT RULES
 4. Base observations strictly on log evidence.
 5. Use markdown tables wherever possible.
 
-Generate the report in EXACTLY the following format:
+Generate the report in EXACTLY the following format.
 
 # OpenShift Performance Log Analysis Report
 
@@ -111,7 +111,7 @@ Return markdown only.
 """
 
 # ============================================================
-# Request Payload
+# Azure AI Request
 # ============================================================
 
 payload = {
@@ -135,10 +135,6 @@ headers = {
     "Content-Type": "application/json"
 }
 
-# ============================================================
-# Azure AI Foundry Call
-# ============================================================
-
 print("Calling Azure AI Foundry...")
 
 response = requests.post(
@@ -155,17 +151,13 @@ analysis = response.json()["choices"][0]["message"]["content"]
 print("Analysis received successfully.")
 
 # ============================================================
-# Save Markdown
+# Save Files
 # ============================================================
 
 (DOCS / "summary.md").write_text(
     analysis,
     encoding="utf-8"
 )
-
-# ============================================================
-# Save JSON
-# ============================================================
 
 (DOCS / "analysis.json").write_text(
     json.dumps(
@@ -178,7 +170,7 @@ print("Analysis received successfully.")
 )
 
 # ============================================================
-# Markdown to HTML
+# Convert Markdown to HTML
 # ============================================================
 
 html_report = markdown.markdown(
@@ -191,10 +183,10 @@ html_report = markdown.markdown(
 )
 
 # ============================================================
-# HTML Dashboard
+# HTML Dashboard Template
 # ============================================================
 
-html = f"""
+html_template = """
 <!DOCTYPE html>
 <html>
 
@@ -251,8 +243,6 @@ table{
     border-collapse:collapse;
     margin-top:15px;
     margin-bottom:25px;
-    overflow:hidden;
-    border-radius:8px;
 }
 
 table,th,td{
@@ -269,17 +259,9 @@ td{
     background:white;
 }
 
-tr:nth-child(even){
-    background:#f8fcff;
-}
-
 th,td{
     padding:12px;
     text-align:left;
-}
-
-h1{
-    margin-top:0;
 }
 
 h1,h2,h3{
@@ -292,16 +274,8 @@ h2{
     margin-top:35px;
 }
 
-h3{
-    margin-top:25px;
-}
-
 ul{
     line-height:1.8;
-}
-
-li{
-    margin-bottom:6px;
 }
 
 code{
@@ -319,14 +293,6 @@ pre{
     border-radius:8px;
 }
 
-blockquote{
-    border-left:5px solid #42A5F5;
-    background:#f7fbfe;
-    margin:15px 0;
-    padding:12px 18px;
-    color:#555;
-}
-
 .footer{
     margin-top:25px;
     text-align:center;
@@ -334,13 +300,8 @@ blockquote{
     font-size:13px;
 }
 
-hr{
-    border:none;
-    border-top:1px solid #d8ebf7;
-    margin:25px 0;
-}
-
 </style>
+
 </head>
 
 <body>
@@ -354,12 +315,12 @@ hr{
 
 <div class="report">
 
-{html_report}
+__REPORT__
 
 </div>
 
 <div class="footer">
-Generated Automatically Using Azure AI Foundry & GitHub Actions
+Generated Automatically Using Azure AI Foundry &amp; GitHub Actions
 </div>
 
 </div>
@@ -368,6 +329,8 @@ Generated Automatically Using Azure AI Foundry & GitHub Actions
 
 </html>
 """
+
+html = html_template.replace("__REPORT__", html_report)
 
 (DOCS / "index.html").write_text(
     html,
